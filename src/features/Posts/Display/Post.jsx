@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardBody, CardFooter, Flex, Heading, Avatar, Box, Text, Image, Button, useColorModeValue, Tooltip, useDisclosure, Collapse, Icon } from "@chakra-ui/react";
-import { BiLike, BiChat } from "react-icons/bi";
+import { BiChat } from "react-icons/bi";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CommentSection from "../Comment/CommentSection";
@@ -9,6 +9,8 @@ import { AuthContext } from "../../../context/context";
 import { useGetUser } from "../../../hooks/useGetUser";
 import { dateFormatter } from "../../../utils/dateFormatter";
 import { AiOutlineDelete } from "react-icons/ai";
+import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
+import AlertComp from "../../../components/Alert/AlertComp";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;
@@ -18,6 +20,11 @@ const Post = ({ post }) => {
     const [loggedUserLiked, setLoggedUserLiked] = useState(null);
     const [isByUser, setIsByUser] = useState(null);
     const [wasDeleted, setWasDeleted] = useState(false);
+    
+    //  Alert management
+    const [isDialogVisible, setIsDialogVisible] = useState(false);
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
     const { user, getUserState } = useGetUser();
     const token = useContext(AuthContext).token;
 
@@ -27,6 +34,7 @@ const Post = ({ post }) => {
     const tooltipBg = useColorModeValue("#edf2f7", "#141414");
 
     useEffect(() => {
+        setIsDialogVisible(false);
         //  To show visually if post was liked by current user
         if (user?.likedPosts) {
             const isLiked = user.likedPosts.filter(post => post === _id);
@@ -38,7 +46,7 @@ const Post = ({ post }) => {
         }
         //  To show delete option if post was made by user
         if (userOwner.toString() === user._id) setIsByUser(true);
-    }, [user]);
+    }, [user, isDialogVisible]);
 
     const clickLike = async () => {
         const like = await likePost(_id, user._id, token);
@@ -60,8 +68,14 @@ const Post = ({ post }) => {
             alert(response.data);
         };
         setWasDeleted(true);
-    }
+    };
+
+    const confirmDelete = () => {
+        setIsDialogVisible(true);
+    };
+
     return (<>
+        <AlertDialogComp isVisible={isDialogVisible} actionFn={deleteUserPost} />
         {!wasDeleted &&
             <Card maxW='md' bgColor={bg} variant="outline">
                 <CardHeader>
@@ -78,7 +92,7 @@ const Post = ({ post }) => {
                         {isByUser &&
                             <Tooltip color={"white"} bgColor={"grey"} hasArrow label="Delete post">
                                 <span>
-                                    <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => deleteUserPost()} />
+                                    <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => confirmDelete()} />
                                 </span>
                             </Tooltip>
                         }
