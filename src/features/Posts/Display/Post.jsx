@@ -10,7 +10,7 @@ import { useGetUser } from "../../../hooks/useGetUser";
 import { dateFormatter } from "../../../utils/dateFormatter";
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
-import AlertComp from "../../../components/Alert/AlertComp";
+import AlertContext from "../../../context/AlertContext";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;
@@ -20,10 +20,11 @@ const Post = ({ post }) => {
     const [loggedUserLiked, setLoggedUserLiked] = useState(null);
     const [isByUser, setIsByUser] = useState(null);
     const [wasDeleted, setWasDeleted] = useState(false);
-    
-    //  Alert management
+
+    const alertCtx = useContext(AlertContext);
+
+    //  Alerts management
     const [isDialogVisible, setIsDialogVisible] = useState(false);
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
 
     const { user, getUserState } = useGetUser();
     const token = useContext(AuthContext).token;
@@ -34,7 +35,6 @@ const Post = ({ post }) => {
     const tooltipBg = useColorModeValue("#edf2f7", "#141414");
 
     useEffect(() => {
-        setIsDialogVisible(false);
         //  To show visually if post was liked by current user
         if (user?.likedPosts) {
             const isLiked = user.likedPosts.filter(post => post === _id);
@@ -46,16 +46,17 @@ const Post = ({ post }) => {
         }
         //  To show delete option if post was made by user
         if (userOwner.toString() === user._id) setIsByUser(true);
-    }, [user, isDialogVisible]);
+    }, [user]);
 
     const clickLike = async () => {
         const like = await likePost(_id, user._id, token);
         if (like.status === 200) {
             setLikes(like.data.likeCount);
+            alertCtx.success(like.data.message);
             //  To update user liked posts
             getUserState();
         } else {
-            alert(like.data)
+            alertCtx.error(like.data.message);
         };
     }
 
@@ -63,11 +64,11 @@ const Post = ({ post }) => {
         const picID = picture.split("/").pop().split(".png")[0];
         const response = await deletePost(_id, picID, token);
         if (response.status === 200) {
-            alert(response.data.message);
+            alertCtx.success(response.data.message);
+            setWasDeleted(true);
         } else {
-            alert(response.data);
+            alertCtx.error(response.data.message);
         };
-        setWasDeleted(true);
     };
 
     const confirmDelete = () => {
@@ -75,7 +76,7 @@ const Post = ({ post }) => {
     };
 
     return (<>
-        <AlertDialogComp isVisible={isDialogVisible} actionFn={deleteUserPost} />
+        <AlertDialogComp isVisible={isDialogVisible} actionFn={deleteUserPost} header={"Delete post?"} body={"This cannot be undone."} action={"Delete"} />
         {!wasDeleted &&
             <Card maxW='md' bgColor={bg} variant="outline">
                 <CardHeader>

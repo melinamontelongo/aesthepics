@@ -1,7 +1,7 @@
 import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 
-const AlertDialogComp = ({ isVisible, actionFn }) => {
+const AlertDialogComp = ({ isVisible, actionFn, header, body, action }) => {
 
     const { isOpen, onClose, onOpen } = useDisclosure();
     const cancelRef = useRef(null);
@@ -25,11 +25,11 @@ const AlertDialogComp = ({ isVisible, actionFn }) => {
             <AlertDialogOverlay>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                        Delete Customer
+                        {header}
                     </AlertDialogHeader>
 
                     <AlertDialogBody>
-                        Are you sure? You can't undo this action afterwards.
+                        {body}
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
@@ -37,7 +37,7 @@ const AlertDialogComp = ({ isVisible, actionFn }) => {
                             Cancel
                         </Button>
                         <Button colorScheme='red' onClick={() => actionAndClose()} ml={3}>
-                            Delete
+                            {action}
                         </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>

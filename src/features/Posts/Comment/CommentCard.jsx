@@ -4,6 +4,7 @@ import { useGetUserID } from '../../../hooks/useGetUser';
 import { useEffect, useState } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from '../../../components/Alert/AlertDialogComp';
+import AlertComp from '../../../components/Alert/AlertComp';
 
 const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment }) => {
     const cardBgColor = useColorModeValue("white", "black");
@@ -11,6 +12,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
     const color = useColorModeValue("black", "white");
     const userID = useGetUserID();
     const [isByUser, setIsByUser] = useState(null);
+    //  Alerts management
     const [isDialogVisible, setIsDialogVisible] = useState(false);
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
     };
 
     return (<>
-    <AlertDialogComp isVisible={isDialogVisible} actionFn={() => deleteComment(commentId)}/>
+        <AlertDialogComp isVisible={isDialogVisible} actionFn={() => deleteComment(commentId)} header={"Delete comment?"} body={"This cannot be undone."} action={"Delete"}/>
         <Card bgColor={cardBgColor} variant="outline">
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">

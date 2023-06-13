@@ -9,11 +9,13 @@ import { useGetPostComments } from '../../../hooks/useGetPostComments';
 import { deleteComment } from '../../../services/reqPost';
 import CommentCard from "./CommentCard";
 import Loader from "../../../components/Loader/Loader";
+import AlertContext from "../../../context/AlertContext";
 
 const CommentSection = ({ postId }) => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm();
     const { postComments, loading, getComments } = useGetPostComments(postId);
     const user = useContext(AuthContext);
+    const alertCtx = useContext(AlertContext);
 
     const onSubmit = async (value) => {
         const comment = {
@@ -24,25 +26,26 @@ const CommentSection = ({ postId }) => {
         };
         const response = await commentPost(comment, postId, user.token);
         if (response.status === 200) {
-            alert(response.data.message);
+            alertCtx.success(response.data.message);
             reset();
             getComments();
         } else {
-            alert(response.data);
-        }
+            alertCtx.error(response.data);
+        };
     };
 
-    const deleteUserComment = async(commentId) => {
+    const deleteUserComment = async (commentId) => {
         const response = await deleteComment(commentId, postId, user.token);
-        if(response.status === 200){
-            alert(response.data.message);
+        if (response.status === 200) {
+            alertCtx.success(response.data.message);
             getComments();
         } else {
-            alert(response.data);
+            alertCtx.error(response.data);
         };
     };
     return (
-        <>{loading && <Loader />}
+        <>
+            {loading && <Loader />}
 
             {postComments?.length > 0 ?
 

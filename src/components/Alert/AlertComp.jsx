@@ -1,22 +1,34 @@
-import { Alert, AlertIcon, AlertDescription, CloseButton, useDisclosure, Flex } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Alert, AlertIcon, AlertDescription, CloseButton, useDisclosure, Flex, Box } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
+import AlertContext from "../../context/AlertContext";
 
-const AlertComp = ({ status, message, isVisible }) => {
+
+const AlertComp = () => {
     const { isOpen, onClose, onOpen } = useDisclosure();
+    const alertCtx = useContext(AlertContext);
+
     useEffect(() => {
-        if(isVisible){
+        if (alertCtx.isVisible) {
             onOpen();
         }
-    }, [isVisible]);
+    }, [alertCtx.isVisible]);
+
+    const closeAlert = () => {
+        alertCtx.clear();
+        onClose();
+    };
+
     return (
         isOpen &&
-        <Alert status={status} p="1rem" justifyContent="space-between">
-            <Flex>
-                <AlertIcon />
-                <AlertDescription>{message}</AlertDescription>
-            </Flex>
-            <CloseButton onClick={onClose} />
-        </Alert>
+        <Flex justifyContent={"center"}>
+            <Alert variant='solid' status={alertCtx.status} p="1rem" justifyContent="space-between" position="fixed" my="5rem" zIndex="50" w="50%">
+                <Flex>
+                    <AlertIcon />
+                    <AlertDescription>{alertCtx.message}</AlertDescription>
+                </Flex>
+                <CloseButton onClick={() => closeAlert()} />
+            </Alert>
+        </Flex>
     );
 };
 

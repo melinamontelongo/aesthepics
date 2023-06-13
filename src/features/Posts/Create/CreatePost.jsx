@@ -9,36 +9,29 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/context";
 import { useNavigate } from "react-router-dom";
 import AlertComp from "../../../components/Alert/AlertComp";
+import AlertContext from "../../../context/AlertContext";
 
 const CreatePost = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
     const user = useContext(AuthContext);
+    const alertCtx = useContext(AlertContext);
     const navigate = useNavigate();
 
-    //  Alert state
-    const [alertMessage, setAlertMessage] = useState("");
-    const [alertStatus, setAlertStatus] = useState("");
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
-
     const onSubmit = async (values) => {
-        setIsAlertVisible(false);
         const postData = new FormData();
         postData.append("image", values.postPic[0]);
         postData.append("description", values.description);
         const response = await postPost(user.user._id, postData, user.token);
         if (response.status === 200) {
-            setAlertStatus("success");
+            alertCtx.success(response.data.message);
+            setTimeout(() => {
+                navigate("/");
+            }, 1000);
         } else {
-            setAlertStatus("error");
+            alertCtx.error(response.data.message);
         };
-        setAlertMessage(response.data.message);
-        setIsAlertVisible(true);
-        setTimeout(() => {
-            navigate("/");
-        }, 1000);
     }
     return (<>
-        <AlertComp isVisible={isAlertVisible} status={alertStatus} message={alertMessage} />
         <Form btnTxt="Create new post" onSubmit={handleSubmit(onSubmit)} submitting={isSubmitting}>
             <FormLabel alignSelf="start" mb="0" pb="0">Choose a picture</FormLabel>
             <SubmitPic register={register("postPic", picValidation)} error={errors["postPic"]} />

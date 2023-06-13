@@ -11,6 +11,9 @@ import { useGetUser } from "./hooks/useGetUser.js";
 import Create from "./pages/Create.jsx";
 import Friends from "./pages/Friends.jsx";
 import Search from "./pages/Search.jsx";
+import AlertComp from "./components/Alert/AlertComp.jsx";
+import { AlertProvider } from "./context/AlertContext.jsx";
+
 
 const App = () => {
   //  Get credentials
@@ -20,18 +23,21 @@ const App = () => {
   return (
     <>
       <AuthContext.Provider value={{ token: cookies.access_token, user, loading, getUserState }}>
-        <Router>
-          <Sidebar />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile/:userID" element={<Profile />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/friends" element={<Friends />} />
-            <Route path="/search" element={<Search />} />
-          </Routes>
-          <Footer />
-        </Router>
+        <AlertProvider>
+          <AlertComp />
+          <Router>
+            <Sidebar />
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile/:userID" element={<Profile />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/friends" element={<Friends />} />
+              <Route path="/search" element={<Search />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </AlertProvider >
       </AuthContext.Provider>
     </>
   )
