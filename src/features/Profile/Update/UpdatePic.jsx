@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../context/context";
+import AuthContext from "../../../context/AuthContext";
+import AlertContext from "../../../context/AlertContext";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useDisclosure, ButtonGroup, Button, VStack, Image, Icon, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, ModalHeader, ModalFooter, Input, FormErrorMessage, useColorModeValue, Text, Box } from "@chakra-ui/react";
 import { userPicDelete, userPicUpdate } from "../../../services/reqUser";
@@ -13,25 +14,26 @@ const UpdatePic = () => {
 
     const bg = useColorModeValue("white", "black");
 
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
+    const alertCtx = useContext(AlertContext);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [isDeleting, setIsDeleting] = useState(false);
 
     const onSubmit = async (values) => {
-        if (user.user.profilePic) {
+        if (userCtx.user.profilePic) {
             await removePicture();
         };
         const formData = new FormData();
         formData.append("image", values.profilePic[0]);
-        const response = await userPicUpdate(user.user._id, formData, { headers: { authorization: user.token } });
+        const response = await userPicUpdate(userCtx.user._id, formData, { headers: { authorization: userCtx.token } });
         if (response.status === 200) {
-            alert(response.data.message);
+            alertCtx.success(response.data.message);
             //  Refetch user info to show updated pic
-            user.getUser();
+            userCtx.getUserState();
         } else {
-            alert("An error occurred!");
+            alertCtx.error(response.data.message);
         };
         onClose();
     }
@@ -39,21 +41,22 @@ const UpdatePic = () => {
     const removePicture = async () => {
         setIsDeleting(true);
         //  Obtain picture public id
-        const picID = user.user.profilePic.split("/").pop().split(".png")[0];
-        const response = await userPicDelete(user.user._id, picID, { headers: { authorization: user.token } });
+        const picID = userCtx.user.profilePic.split("/").pop().split(".png")[0];
+        const response = await userPicDelete(userCtx.user._id, picID, { headers: { authorization: userCtx.token } });
         if (response.status === 200) {
-            alert(response.data.message);
+            alertCtx.success(response.data.message);
             //  Refetch user info to show updated pic
-            user.getUser();
+            userCtx.getUserState();
         } else {
-            alert("An error occurred!");
+            alertCtx.error(response.data.message);
         };
         setIsDeleting(false);
+        onClose();
     };
 
     return (<>
         <ButtonGroup onClick={onOpen} cursor="pointer" justifyContent="center" alignItems="center" sx={{ '.img:hover ~ .ico, .ico:hover': { visibility: "visible" } }}>
-            <Image className="img" src={user?.user?.profilePic} alt={user?.user?.username} fallbackSrc="/profileFallback.png" rounded="100%" w="10rem" h="10rem" objectFit="cover" _hover={{ "filter": 'auto', "brightness": '50%' }} />
+            <Image className="img" src={userCtx?.user?.profilePic} alt={userCtx?.user?.username} fallbackSrc="/profileFallback.png" rounded="100%" w="10rem" h="10rem" objectFit="cover" _hover={{ "filter": 'auto', "brightness": '50%' }} />
             <Icon className="ico" visibility="hidden" as={AiOutlinePlus} position="absolute" />
         </ButtonGroup>
 

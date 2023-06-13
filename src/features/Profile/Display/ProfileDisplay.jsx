@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../context/context";
+import AuthContext from "../../../context/AuthContext";
 import { Box, Flex, Text, Grid, GridItem, useDisclosure, Image, Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 
 import UpdateForm from "../Update/UpdateForm";
@@ -11,7 +11,7 @@ import FriendBtn from "../../Friends/Add/FriendBtn";
 import ProfileDisplayPosts from "../../Posts/Display/ProfileDisplayPosts";
 
 const ProfileDisplay = ({ userID }) => {
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
     const [userPosts, setUserPosts] = useState([]);
     const [userProfile, setUserProfile] = useState({});
     const [isOwner, setIsOwner] = useState(null);
@@ -22,12 +22,12 @@ const ProfileDisplay = ({ userID }) => {
             const posts = await getUserPosts(userID);
             setUserPosts(posts.data.posts);
             // Is not account owner's profile
-            if (userID !== user.user._id) {
+            if (userID !== userCtx.user._id) {
                 const userProfile = await getUser(userID);
                 setUserProfile(userProfile.data.user);
                 setIsOwner(false);
                 //  Determine if it's friend or not
-                const isFriend = user?.user?.friends?.filter(f => f.toString() === userID);
+                const isFriend = userCtx?.user?.friends?.filter(f => f.toString() === userID);
                 if (isFriend?.length > 0) {
                     setIsAddFriend(false);
                 } else {
@@ -35,12 +35,12 @@ const ProfileDisplay = ({ userID }) => {
                 };
                 //It is account owner's profile
             } else {
-                setUserProfile(user.user);
+                setUserProfile(userCtx.user);
                 setIsOwner(true);
             }
         };
         getPosts();
-    }, [userID, user]);
+    }, [userID, userCtx]);
 
     return (<>
         <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem">
@@ -72,7 +72,7 @@ const ProfileDisplay = ({ userID }) => {
                         userProfile._id && isAddFriend !== null && <FriendBtn isAdd={isAddFriend} friendID={userProfile._id} />
                     }
                 </Flex>
-                <Text fontSize="lg" >{userProfile?.firstName} {user.user?.lastName}</Text>
+                <Text fontSize="lg" >{userProfile?.firstName} {userProfile?.lastName}</Text>
                 <Text fontSize="lg" >{userProfile?.bio}</Text>
             </GridItem>
         </Grid>

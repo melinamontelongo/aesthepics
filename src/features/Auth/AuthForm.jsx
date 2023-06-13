@@ -5,43 +5,31 @@ import { passwordValidation, usernameValidation } from './formValidation';
 import Form from '../../components/Form/Form';
 import FormCtrl from '../../components/Form/FormCtrl';
 import { userAuth } from '../../services/reqUser';
-import AlertComp from '../../components/Alert/AlertComp';
-import { useState } from 'react';
+import { useContext } from 'react';
+import AlertContext from '../../context/AlertContext';
 
 const AuthForm = ({ authType, btnTxt }) => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
     const [_, setCookie] = useCookies(["access_token"]);
     
-    //  Alert state
-    const [alertMessage, setAlertMessage] = useState("");
-    const [alertStatus, setAlertStatus] = useState("");
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const alertCtx = useContext(AlertContext);
 
     const onSubmit = async (values) => {
-        setIsAlertVisible(false);
-        try {
-            const response = await userAuth(authType, values);
-            if (response.status === 200) {
-                if (authType === "login") {
-                    //  Store credentials
-                    setCookie("access_token", response.data.token);
-                    window.localStorage.setItem("userID", response.data.userID);
-                    window.localStorage.setItem("username", response.data.username);
-                };
-                setAlertStatus("success");
-            } else {
-                setAlertStatus("error");
+        const response = await userAuth(authType, values);
+        if (response.status === 200) {
+            if (authType === "login") {
+                //  Store credentials
+                setCookie("access_token", response.data.token);
+                window.localStorage.setItem("userID", response.data.userID);
+                window.localStorage.setItem("username", response.data.username);
             };
-            setAlertMessage(response.data.message);
-        } catch (e) {
-            setAlertMessage(e.response.message);
-            setAlertStatus("error");
+            alertCtx.success(response.data.message);
+        } else {
+            alertCtx.error(response.data.message);
         };
-        setIsAlertVisible(true);
     };
-    
+
     return (<>
-        <AlertComp isVisible={isAlertVisible} message={alertMessage} status={alertStatus} />
         <Form onSubmit={handleSubmit(onSubmit)} btnTxt={btnTxt} submitting={isSubmitting}>
             <FormCtrl
                 register={register("username", usernameValidation)}

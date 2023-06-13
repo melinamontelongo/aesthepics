@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import CommentSection from "../Comment/CommentSection";
 import { deletePost, likePost } from "../../../services/reqPost";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../context/context";
-import { useGetUser } from "../../../hooks/useGetUser";
+import AuthContext from "../../../context/AuthContext";
 import { dateFormatter } from "../../../utils/dateFormatter";
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
@@ -14,20 +13,20 @@ import AlertContext from "../../../context/AlertContext";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;
-    const { time, date } = dateFormatter(createdAt);
     const { isOpen, onToggle } = useDisclosure();
+    const { time, date } = dateFormatter(createdAt);
+
     const [likes, setLikes] = useState(likeCount);
     const [loggedUserLiked, setLoggedUserLiked] = useState(null);
     const [isByUser, setIsByUser] = useState(null);
     const [wasDeleted, setWasDeleted] = useState(false);
 
+    //  Context
     const alertCtx = useContext(AlertContext);
+    const userCtx = useContext(AuthContext);
 
     //  Alerts management
     const [isDialogVisible, setIsDialogVisible] = useState(false);
-
-    const { user, getUserState } = useGetUser();
-    const token = useContext(AuthContext).token;
 
     //  Colors
     const bg = useColorModeValue("white", "black");
@@ -36,8 +35,8 @@ const Post = ({ post }) => {
 
     useEffect(() => {
         //  To show visually if post was liked by current user
-        if (user?.likedPosts) {
-            const isLiked = user.likedPosts.filter(post => post === _id);
+        if (userCtx.user?.likedPosts) {
+            const isLiked = userCtx.user.likedPosts.filter(post => post === _id);
             if (isLiked.length > 0) {
                 setLoggedUserLiked(true);
             } else {
@@ -45,16 +44,16 @@ const Post = ({ post }) => {
             }
         }
         //  To show delete option if post was made by user
-        if (userOwner.toString() === user._id) setIsByUser(true);
-    }, [user]);
+        if (userOwner.toString() === userCtx.user._id) setIsByUser(true);
+    }, [userCtx.user]);
 
     const clickLike = async () => {
-        const like = await likePost(_id, user._id, token);
+        const like = await likePost(_id, userCtx.user._id, userCtx.token);
         if (like.status === 200) {
             setLikes(like.data.likeCount);
             alertCtx.success(like.data.message);
             //  To update user liked posts
-            getUserState();
+            userCtx.getUserState();
         } else {
             alertCtx.error(like.data.message);
         };
@@ -62,7 +61,7 @@ const Post = ({ post }) => {
 
     const deleteUserPost = async () => {
         const picID = picture.split("/").pop().split(".png")[0];
-        const response = await deletePost(_id, picID, token);
+        const response = await deletePost(_id, picID, userCtx.token);
         if (response.status === 200) {
             alertCtx.success(response.data.message);
             setWasDeleted(true);
@@ -107,7 +106,7 @@ const Post = ({ post }) => {
                 <Image
                     objectFit='cover'
                     src={picture}
-                    alt={`${user}'s post photo`}
+                    alt={`${username}'s post photo`}
                 />
 
                 <CardFooter

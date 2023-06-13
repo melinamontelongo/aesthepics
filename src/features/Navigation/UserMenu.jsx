@@ -5,16 +5,16 @@ import { CgProfile } from "react-icons/cg";
 import { useCookies } from "react-cookie";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/context";
+import AuthContext from "../../context/AuthContext";
 import { useGetUser } from "../../hooks/useGetUser";
 
 const UserMenu = () => {
     const [_, setCookie, removeCookie] = useCookies(["access_token"]);
     const { colorMode, toggleColorMode } = useColorMode();
+    const userCtx = useContext(AuthContext);
     const navigate = useNavigate();
     const bgColor = useColorModeValue("white", "black");
     const hoverbgColor = useColorModeValue("#edf2f7", "#141414");
-    const user = useContext(AuthContext);
 
     const logout = () => {
         removeCookie("access_token");
@@ -28,12 +28,12 @@ const UserMenu = () => {
         <Menu closeOnSelect={false}>
             <MenuButton as={Button} variant={{ md: "ghost" }} mx={{ md: "1rem" }} py={{ md: "1.5rem" }} w="100%">
                 <Box display="flex" justifyContent="start" alignItems="center" gap="0.5rem" >
-                    <Avatar name={user?.user?.username} src={user?.user?.profilePic} size='xs' />
+                    <Avatar name={userCtx?.user?.username} src={userCtx?.user?.profilePic} size='xs' />
                     <Text fontSize="1.1em" hideBelow="lg">Profile</Text>
                 </Box>
             </MenuButton>
             <MenuList bgColor={bgColor} px="0.5rem">
-                <MenuItem as={Link} to={`/profile/${user.user._id}`} bgColor={bgColor} _hover={{ bgColor: hoverbgColor }} rounded="md" py="0.5rem">
+                <MenuItem as={Link} to={`/profile/${userCtx.user._id}`} bgColor={bgColor} _hover={{ bgColor: hoverbgColor }} rounded="md" py="0.5rem">
                     <Text fontWeight="medium">See profile</Text>
                     <Spacer />
                     <Icon as={CgProfile} />

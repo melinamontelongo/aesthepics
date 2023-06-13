@@ -6,7 +6,7 @@ import { RiSearch2Line, RiSearch2Fill, RiAddBoxFill, RiAddBoxLine } from "react-
 import { HiUsers, HiOutlineUsers } from "react-icons/hi";
 
 import { useContext } from "react";
-import { AuthContext } from "../../context/context";
+import AuthContext from "../../context/AuthContext";
 
 import AuthForm from "../Auth/AuthForm";
 import UserMenu from "./UserMenu";
@@ -15,14 +15,14 @@ import ModalWBtn from "../../components/Modal/ModalWBtn";
 
 const Sidebar = () => {
     const bg = useColorModeValue("white", "black");
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
 
     return (
         <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" borderRightWidth="thin" bgColor={bg}>
             <Heading mx="2rem" mt="2rem" size={{ xl: "lg", lg: "md" }} hideBelow="lg">Aesthepics</Heading>
             <Heading mx="2rem" mt="2rem" size="lg" hideFrom="lg">A</Heading>
             {/* User is signed in */}
-            {user?.token ?
+            {userCtx?.token ?
                 (<Flex justifyContent="start" pt="3rem" alignItems="space-between" h="80vh">
                     <SimpleGrid width="100%">
                         {/* HOME */}

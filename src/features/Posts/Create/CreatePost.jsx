@@ -3,17 +3,16 @@ import Form from "../../../components/Form/Form";
 import SubmitPic from "../../../components/Form/SubmitPic";
 import TextareaCtrl from "../../../components/Form/TextareaCtrl";
 import { picValidation, descriptionValidation } from "../../../utils/picValidation";
-import { Divider, FormLabel, Text } from "@chakra-ui/react";
+import { FormLabel } from "@chakra-ui/react";
 import { postPost } from "../../../services/reqPost";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../../context/context";
+import { useContext } from "react";
+import AuthContext from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import AlertComp from "../../../components/Alert/AlertComp";
 import AlertContext from "../../../context/AlertContext";
 
 const CreatePost = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
     const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const CreatePost = () => {
         const postData = new FormData();
         postData.append("image", values.postPic[0]);
         postData.append("description", values.description);
-        const response = await postPost(user.user._id, postData, user.token);
+        const response = await postPost(userCtx.user._id, postData, userCtx.token);
         if (response.status === 200) {
             alertCtx.success(response.data.message);
             setTimeout(() => {

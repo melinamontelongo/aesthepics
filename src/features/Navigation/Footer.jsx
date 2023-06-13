@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { useColorMode, useColorModeValue, Flex, Divider, Box, Icon, Button } from "@chakra-ui/react";
+import { useColorModeValue, Flex, Divider, Box, Icon, Button } from "@chakra-ui/react";
 
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { RiSearch2Line, RiSearch2Fill, RiAddBoxFill, RiAddBoxLine } from "react-icons/ri";
 import { HiUsers, HiOutlineUsers } from "react-icons/hi";
 
-import { AuthContext } from "../../context/context";
+import AuthContext from "../../context/AuthContext";
 
 import AuthForm from "../Auth/AuthForm";
 import UserMenu from "./UserMenu";
@@ -14,10 +14,10 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     const bgColor = useColorModeValue("white", "black");
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
     return (
-        <Flex as="footer" p="1rem" boxShadow='md' pos="fixed" bottom={0} left={0} w="100%" zIndex={2} hideFrom="md" gap="1.5rem" align="center" justify={`${user?.token ? "space-between" : "space-evenly"}`} bgColor={bgColor} borderTopWidth="thin">
-            {user?.token ? (<>
+        <Flex as="footer" p="1rem" boxShadow='md' pos="fixed" bottom={0} left={0} w="100%" zIndex={2} hideFrom="md" gap="1.5rem" align="center" justify={`${userCtx?.token ? "space-between" : "space-evenly"}`} bgColor={bgColor} borderTopWidth="thin">
+            {userCtx?.token ? (<>
                 <NavLink to="/" style={{ display: "flex", alignItems: "center" }}>
                     {({ isActive }) => (
                         <Icon as={isActive ? AiFillHome : AiOutlineHome} fontSize="1.7em" />

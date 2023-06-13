@@ -4,7 +4,7 @@ import { AiOutlineSend } from "react-icons/ai"
 import { useForm } from "react-hook-form";
 import { commentPost } from "../../../services/reqPost";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../context/context";
+import AuthContext from "../../../context/AuthContext";
 import { useGetPostComments } from '../../../hooks/useGetPostComments';
 import { deleteComment } from '../../../services/reqPost';
 import CommentCard from "./CommentCard";
@@ -14,17 +14,17 @@ import AlertContext from "../../../context/AlertContext";
 const CommentSection = ({ postId }) => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm();
     const { postComments, loading, getComments } = useGetPostComments(postId);
-    const user = useContext(AuthContext);
+    const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
 
     const onSubmit = async (value) => {
         const comment = {
-            userOwner: user.user._id,
-            ownerUsername: user.user.username,
-            ownerProfilePic: user.user.profilePic,
+            userOwner: userCtx.user._id,
+            ownerUsername: userCtx.user.username,
+            ownerProfilePic: userCtx.user.profilePic,
             text: value.comment,
         };
-        const response = await commentPost(comment, postId, user.token);
+        const response = await commentPost(comment, postId, userCtx.token);
         if (response.status === 200) {
             alertCtx.success(response.data.message);
             reset();
@@ -35,7 +35,7 @@ const CommentSection = ({ postId }) => {
     };
 
     const deleteUserComment = async (commentId) => {
-        const response = await deleteComment(commentId, postId, user.token);
+        const response = await deleteComment(commentId, postId, userCtx.token);
         if (response.status === 200) {
             alertCtx.success(response.data.message);
             getComments();
