@@ -1,5 +1,5 @@
 import { useColorModeValue, Box, Text, SimpleGrid, Flex, Heading, Button, Icon, Divider } from "@chakra-ui/react"
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { RiSearch2Line, RiSearch2Fill, RiAddBoxFill, RiAddBoxLine } from "react-icons/ri";
@@ -19,8 +19,12 @@ const Sidebar = () => {
 
     return (
         <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" borderRightWidth="thin" bgColor={bg}>
-            <Heading mx="2rem" mt="2rem" size={{ xl: "lg", lg: "md" }} hideBelow="lg">Aesthepics</Heading>
-            <Heading mx="2rem" mt="2rem" size="lg" hideFrom="lg">A</Heading>
+            <Box mx="2rem" mt="2rem" hideBelow="lg">
+                <Heading as={Link} to="/" size={{ xl: "lg", lg: "md" }} >Aesthepics</Heading>
+            </Box>
+            <Box mx="2rem" mt="2rem" hideFrom="lg">
+                <Heading as={Link} to="/" size="lg" >A</Heading>
+            </Box>
             {/* User is signed in */}
             {userCtx?.token ?
                 (<Flex justifyContent="start" pt="3rem" alignItems="space-between" h="80vh">
@@ -69,19 +73,19 @@ const Sidebar = () => {
                 </Flex>)
                 :
                 (<>
-                    {/* User is not signed in */ }
-                        <Flex justifyContent="center" pt="3rem" alignItems="center" h="80vh">
-                            <SimpleGrid width="100%">
-                                <ModalWBtn btnTxt="Sign In" modalTitle="Sign into your account" modalBody={<AuthForm authType="login" btnTxt="Sign In" />} />
-                                <Divider my="2rem" orientation='horizontal' w="80%" mx="auto" />
-                                <ModalWBtn btnTxt="Sign Up" modalTitle="Create an account" modalBody={<AuthForm authType="register" btnTxt="Sign Up" />} />
-                            </SimpleGrid>
-                        </Flex>
-                        <Flex justifyContent="start">
-                            <ColorToggler />
-                        </Flex>
-                    </>
-                    )
+                    {/* User is not signed in */}
+                    <Flex justifyContent="center" pt="3rem" alignItems="center" h="80vh">
+                        <SimpleGrid width="100%">
+                            <ModalWBtn btnTxt="Sign In" modalTitle="Sign into your account" modalBody={<AuthForm authType="login" btnTxt="Sign In" />} />
+                            <Divider my="2rem" orientation='horizontal' w="80%" mx="auto" />
+                            <ModalWBtn btnTxt="Sign Up" modalTitle="Create an account" modalBody={<AuthForm authType="register" btnTxt="Sign Up" />} />
+                        </SimpleGrid>
+                    </Flex>
+                    <Flex justifyContent="start">
+                        <ColorToggler />
+                    </Flex>
+                </>
+                )
             }
         </Box>
     );
