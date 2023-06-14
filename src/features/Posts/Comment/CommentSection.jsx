@@ -20,8 +20,6 @@ const CommentSection = ({ postId }) => {
     const onSubmit = async (value) => {
         const comment = {
             userOwner: userCtx.user._id,
-            ownerUsername: userCtx.user.username,
-            ownerProfilePic: userCtx.user.profilePic,
             text: value.comment,
         };
         const response = await commentPost(comment, postId, userCtx.token);
@@ -30,7 +28,7 @@ const CommentSection = ({ postId }) => {
             reset();
             getComments();
         } else {
-            alertCtx.error(response.data);
+            alertCtx.error(response.data.message);
         };
     };
 
@@ -40,7 +38,7 @@ const CommentSection = ({ postId }) => {
             alertCtx.success(response.data.message);
             getComments();
         } else {
-            alertCtx.error(response.data);
+            alertCtx.error(response.data.message);
         };
     };
     return (

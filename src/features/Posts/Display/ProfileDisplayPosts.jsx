@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Flex, useDisclosure, Image, Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import Post from './Post';
+import AuthContext from '../../../context/AuthContext';
+import AlertContext from '../../../context/AlertContext';
 
 const ProfileDisplayPosts = ({ posts, userInfo }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [currentPost, setCurrentPost] = useState({});
+    const userCtx = useContext(AuthContext);
+    const alertCtx = useContext(AlertContext);
 
     const displayPost = (post) => {
-        post.username = userInfo.username;
-        post.userOwner = userInfo._id;
-        post.profilePic = userInfo.profilePic;
-        setCurrentPost(post);
-        onOpen();
+        if(userCtx.token){
+            post.username = userInfo.username;
+            post.userOwner = userInfo._id;
+            post.profilePic = userInfo.profilePic;
+            setCurrentPost(post);
+            onOpen();
+        } else {
+            alertCtx.error("Please sign in or register.");
+        }
     };
 
     return (<>
@@ -26,7 +34,7 @@ const ProfileDisplayPosts = ({ posts, userInfo }) => {
         </Flex >
 
         <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
+            <ModalOverlay zIndex={"40"}/>
             <ModalContent>
                 <Post
                     post={currentPost}

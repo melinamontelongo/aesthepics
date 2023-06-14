@@ -18,7 +18,7 @@ const ModalWBtn = ({ btnTxt, modalTitle, modalBody }) => {
             <Button onClick={onOpen} mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }}>{btnTxt}</Button>
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                <ModalOverlay />
+                <ModalOverlay zIndex={"40"}/>
                 <ModalContent bgColor={bg} borderWidth="thin">
                     <ModalHeader>{modalTitle}</ModalHeader>
                     <ModalCloseButton />

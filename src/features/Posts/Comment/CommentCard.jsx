@@ -1,25 +1,24 @@
 import { Card, CardBody, Text, Avatar, Flex, Box, useColorModeValue, Icon, Tooltip } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useGetUserID } from '../../../hooks/useGetUser';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from '../../../components/Alert/AlertDialogComp';
-import AlertComp from '../../../components/Alert/AlertComp';
+import AuthContext from '../../../context/AuthContext';
 
 const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment }) => {
     const cardBgColor = useColorModeValue("white", "black");
     const tooltipBg = useColorModeValue("#edf2f7", "#141414");
     const color = useColorModeValue("black", "white");
-    const userID = useGetUserID();
+    const userCtx = useContext(AuthContext);
     const [isByUser, setIsByUser] = useState(null);
-    //  Alerts management
     const [isDialogVisible, setIsDialogVisible] = useState(false);
 
     useEffect(() => {
         setIsDialogVisible(false);
         //  Determine if comment was made by current logged in user
-        if (linkToId === userID) setIsByUser(true);
-    }, [isDialogVisible]);
+        if (linkToId === userCtx.user._id) setIsByUser(true);
+    }, [userCtx.user, isDialogVisible]);
 
     const confirmDelete = () => {
         setIsDialogVisible(true);
