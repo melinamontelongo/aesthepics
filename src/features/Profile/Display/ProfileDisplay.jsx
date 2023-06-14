@@ -40,7 +40,7 @@ const ProfileDisplay = ({ userID }) => {
             }
         };
         getPosts();
-    }, [userID, userCtx]);
+    }, [userID, userCtx.user]);
 
     return (<>
         <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem">
