@@ -5,12 +5,12 @@ import { useContext, useEffect, useState } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from '../../../components/Alert/AlertDialogComp';
 import AuthContext from '../../../context/AuthContext';
+import ColorContext from '../../../context/ColorContext';
 
 const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment }) => {
-    const cardBgColor = useColorModeValue("white", "black");
-    const tooltipBg = useColorModeValue("#edf2f7", "#141414");
-    const color = useColorModeValue("black", "white");
     const userCtx = useContext(AuthContext);
+    const colorCtx = useContext(ColorContext);
+    
     const [isByUser, setIsByUser] = useState(null);
     const [isDialogVisible, setIsDialogVisible] = useState(false);
 
@@ -26,7 +26,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
 
     return (<>
         <AlertDialogComp isVisible={isDialogVisible} actionFn={() => deleteComment(commentId)} header={"Delete comment?"} body={"This cannot be undone."} action={"Delete"}/>
-        <Card bgColor={cardBgColor} variant="outline">
+        <Card bgColor={colorCtx.background} variant="outline">
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">
                     <Flex alignItems="flex-start" gap="1rem">
@@ -37,7 +37,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
                         </Box>
                     </Flex>
                     {isByUser &&
-                        <Tooltip color={color} bgColor={tooltipBg} hasArrow label="Delete comment">
+                        <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} hasArrow label="Delete comment">
                             <span>
                                 <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => confirmDelete()} />
                             </span>

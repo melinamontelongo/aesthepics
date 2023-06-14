@@ -11,7 +11,6 @@ const SearchDisplay = () => {
 
     const search = async (query) => {
         const result = await getSearchPosts(query);
-        console.log("search results: ", result)
         if (result.status === 200) {
             let counter = 0;
             result.data.posts.forEach(async (post, index, array) => {

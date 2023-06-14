@@ -9,9 +9,11 @@ import {
     Button,
     useColorModeValue
 } from '@chakra-ui/react';
+import { useContext } from 'react';
+import ColorContext from '../../context/ColorContext';
 
 const ModalWBtn = ({ btnTxt, modalTitle, modalBody }) => {
-    const bg = useColorModeValue("white", "black");
+    const colorCtx = useContext(ColorContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
@@ -19,7 +21,7 @@ const ModalWBtn = ({ btnTxt, modalTitle, modalBody }) => {
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay zIndex={"40"}/>
-                <ModalContent bgColor={bg} borderWidth="thin">
+                <ModalContent bgColor={colorCtx.background} borderWidth="thin">
                     <ModalHeader>{modalTitle}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb="1.7rem">

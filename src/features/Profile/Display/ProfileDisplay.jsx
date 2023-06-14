@@ -12,6 +12,7 @@ import ProfileDisplayPosts from "../../Posts/Display/ProfileDisplayPosts";
 
 const ProfileDisplay = ({ userID }) => {
     const userCtx = useContext(AuthContext);
+    
     const [userPosts, setUserPosts] = useState([]);
     const [userProfile, setUserProfile] = useState({});
     const [isOwner, setIsOwner] = useState(null);

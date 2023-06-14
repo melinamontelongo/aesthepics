@@ -1,11 +1,14 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { Ring } from '@uiball/loaders';
+import { useContext } from 'react';
+import ColorContext from '../../context/ColorContext';
 
 const Loader = () => {
-    const loaderColor = useColorModeValue("black", "white");
+    const colorCtx = useContext(ColorContext);
+
     return (
         <Flex justifyContent="center">
-            <Ring size={30} color={loaderColor} />
+            <Ring size={30} color={colorCtx.color} />
         </Flex>
     );
 };

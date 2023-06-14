@@ -11,27 +11,30 @@ import Create from "./pages/Create.jsx";
 import Friends from "./pages/Friends.jsx";
 import Search from "./pages/Search.jsx";
 import AlertComp from "./components/Alert/AlertComp.jsx";
+import { ColorProvider } from "./context/ColorContext";
 
 const App = () => {
 
   return (
     <>
       <AuthProvider>
-        <AlertProvider>
-          <AlertComp />
-          <Router>
-            <Sidebar />
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile/:userID" element={<Profile />} />
-              <Route path="/create" element={<Create />} />
-              <Route path="/friends" element={<Friends />} />
-              <Route path="/search" element={<Search />} />
-            </Routes>
-            <Footer />
-          </Router>
-        </AlertProvider >
+        <ColorProvider>
+          <AlertProvider>
+            <AlertComp />
+            <Router>
+              <Sidebar />
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/profile/:userID" element={<Profile />} />
+                <Route path="/create" element={<Create />} />
+                <Route path="/friends" element={<Friends />} />
+                <Route path="/search" element={<Search />} />
+              </Routes>
+              <Footer />
+            </Router>
+          </AlertProvider >
+        </ColorProvider>
       </AuthProvider>
     </>
   )

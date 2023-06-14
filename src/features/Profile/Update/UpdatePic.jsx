@@ -8,14 +8,14 @@ import { picValidation } from "../../../utils/picValidation";
 import { useForm } from "react-hook-form";
 import Form from "../../../components/Form/Form";
 import SubmitPic from "../../../components/Form/SubmitPic";
+import ColorContext from "../../../context/ColorContext";
 
 const UpdatePic = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
 
-    const bg = useColorModeValue("white", "black");
-
     const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
+    const colorCtx = useContext(ColorContext);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -62,7 +62,7 @@ const UpdatePic = () => {
 
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
-            <ModalContent bg={bg} borderWidth="thin" pb="1rem">
+            <ModalContent bg={colorCtx.background} borderWidth="thin" pb="1rem">
                 <ModalHeader textAlign="center">Change Profile Photo</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>

@@ -10,6 +10,7 @@ import { dateFormatter } from "../../../utils/dateFormatter";
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
 import AlertContext from "../../../context/AlertContext";
+import ColorContext from "../../../context/ColorContext";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;
@@ -20,18 +21,12 @@ const Post = ({ post }) => {
     const [loggedUserLiked, setLoggedUserLiked] = useState(null);
     const [isByUser, setIsByUser] = useState(null);
     const [wasDeleted, setWasDeleted] = useState(false);
+    const [isDialogVisible, setIsDialogVisible] = useState(false);
 
     //  Context
     const alertCtx = useContext(AlertContext);
     const userCtx = useContext(AuthContext);
-
-    //  Alerts management
-    const [isDialogVisible, setIsDialogVisible] = useState(false);
-
-    //  Colors
-    const bg = useColorModeValue("white", "black");
-    const color = useColorModeValue("black", "white");
-    const tooltipBg = useColorModeValue("#edf2f7", "#141414");
+    const colorCtx = useContext(ColorContext);
 
     useEffect(() => {
         //  To show visually if post was liked by current user
@@ -77,20 +72,20 @@ const Post = ({ post }) => {
     return (<>
         <AlertDialogComp isVisible={isDialogVisible} actionFn={deleteUserPost} header={"Delete post?"} body={"This cannot be undone."} action={"Delete"} />
         {!wasDeleted &&
-            <Card maxW='md' bgColor={bg} variant="outline">
+            <Card maxW='md' bgColor={colorCtx.background} variant="outline">
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                             <Avatar name={username} src={profilePic} />
                             <Box>
                                 <Heading as={Link} to={`/profile/${userOwner}`} size='md'>{username}</Heading>
-                                <Tooltip hasArrow label={time} bgColor={tooltipBg} color={color} fontSize="sm">
+                                <Tooltip hasArrow label={time} bgColor={colorCtx.accent} color={colorCtx.color} fontSize="sm">
                                     <Text fontSize="sm" cursor="pointer">{date}</Text>
                                 </Tooltip>
                             </Box>
                         </Flex>
                         {isByUser &&
-                            <Tooltip color={"white"} bgColor={"grey"} hasArrow label="Delete post">
+                            <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} hasArrow label="Delete post">
                                 <span>
                                     <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => confirmDelete()} />
                                 </span>

@@ -12,13 +12,14 @@ import AuthForm from "../Auth/AuthForm";
 import UserMenu from "./UserMenu";
 import ColorToggler from "../../components/ColorToggler/ColorToggler";
 import ModalWBtn from "../../components/Modal/ModalWBtn";
+import ColorContext from "../../context/ColorContext";
 
 const Sidebar = () => {
-    const bg = useColorModeValue("white", "black");
+    const colorCtx = useContext(ColorContext);
     const userCtx = useContext(AuthContext);
 
     return (
-        <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" borderRightWidth="thin" bgColor={bg}>
+        <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" borderRightWidth="thin" bgColor={colorCtx.background}>
             <Box mx="2rem" mt="2rem" hideBelow="lg">
                 <Heading as={Link} to="/" size={{ xl: "lg", lg: "md" }} >Aesthepics</Heading>
             </Box>
