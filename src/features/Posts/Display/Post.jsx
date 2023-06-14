@@ -70,7 +70,14 @@ const Post = ({ post }) => {
     };
 
     return (<>
-        <AlertDialogComp isVisible={isDialogVisible} actionFn={deleteUserPost} header={"Delete post?"} body={"This cannot be undone."} action={"Delete"} />
+        <AlertDialogComp
+            isVisible={isDialogVisible}
+            setVisible={setIsDialogVisible}
+            actionFn={deleteUserPost}
+            header={"Delete post?"}
+            body={"This cannot be undone."}
+            action={"Delete"} 
+        />
         {!wasDeleted &&
             <Card maxW='md' bgColor={colorCtx.background} variant="outline">
                 <CardHeader>

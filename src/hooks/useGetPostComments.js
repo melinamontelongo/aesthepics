@@ -8,7 +8,6 @@ export const useGetPostComments = (postId) => {
 
     const getComments = async () => {
         const post = await getOnePost(postId);
-        console.log("post on getComments fn ", post)
         const comments = post.data.post.comments;
         let counter = 0;
         await comments?.forEach(async (comment, index, array) => {

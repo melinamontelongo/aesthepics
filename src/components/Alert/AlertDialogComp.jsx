@@ -1,10 +1,12 @@
 import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import ColorContext from "../../context/ColorContext";
 
-const AlertDialogComp = ({ isVisible, actionFn, header, body, action }) => {
+const AlertDialogComp = ({ isVisible, setVisible, actionFn, header, body, action }) => {
 
     const { isOpen, onClose, onOpen } = useDisclosure();
     const cancelRef = useRef(null);
+    const colorCtx = useContext(ColorContext);
 
     useEffect(() => {
         if (isVisible) {
@@ -15,15 +17,21 @@ const AlertDialogComp = ({ isVisible, actionFn, header, body, action }) => {
     const actionAndClose = () => {
         actionFn();
         onClose();
+        setVisible(false);
     };
+
+    const closeAndSetVisible = () => {
+        onClose();
+        setVisible(false);
+    }
     return (
         <AlertDialog
             isOpen={isOpen}
             leastDestructiveRef={cancelRef}
-            onClose={onClose}
+            onClose={closeAndSetVisible}
         >
             <AlertDialogOverlay>
-                <AlertDialogContent>
+                <AlertDialogContent bgColor={colorCtx.accent}>
                     <AlertDialogHeader fontSize='lg' fontWeight='bold'>
                         {header}
                     </AlertDialogHeader>
@@ -33,7 +41,7 @@ const AlertDialogComp = ({ isVisible, actionFn, header, body, action }) => {
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={onClose}>
+                        <Button ref={cancelRef} onClick={() => closeAndSetVisible()}>
                             Cancel
                         </Button>
                         <Button colorScheme='red' onClick={() => actionAndClose()} ml={3}>

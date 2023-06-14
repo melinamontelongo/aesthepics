@@ -1,11 +1,12 @@
 import { Card, CardBody, Text, Avatar, Flex, Box, useColorModeValue } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import ColorContext from '../../context/ColorContext';
 
 const CardWAvatar = ({ avatarPic, linkToId, name, txt }) => {
-    const value = useColorModeValue("white", "black");
-
-    return (
-        <Card bgColor={value} variant="outline">
+    const colorCtx = useContext(ColorContext);
+    return (    
+        <Card bgColor={colorCtx.background} variant="outline">
             <CardBody>
                 <Flex justifyContent="space-between" alignItems="center" gap="2rem">
                     <Avatar size="xl" name={name} src={avatarPic} />
