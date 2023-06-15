@@ -21,7 +21,7 @@ const AlertComp = () => {
     return (
         isOpen &&
         <Flex justifyContent={"center"}>
-            <Alert variant='solid' status={alertCtx.status} p="1rem" justifyContent="space-between" position="fixed" my="5rem" zIndex="50" w="50%">
+            <Alert variant='solid' status={alertCtx.status} p="1rem" justifyContent="space-between" position="fixed" my="5rem" zIndex="50" w={{md: "50%", base: "100%"}}>
                 <Flex>
                     <AlertIcon />
                     <AlertDescription>{alertCtx.message}</AlertDescription>
