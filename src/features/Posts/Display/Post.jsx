@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Flex, Heading, Avatar, Box, Text, Image, Button, useColorModeValue, Tooltip, useDisclosure, Collapse, Icon } from "@chakra-ui/react";
-import { BiChat } from "react-icons/bi";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { BsChatFill, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CommentSection from "../Comment/CommentSection";
 import { deletePost, likePost } from "../../../services/reqPost";
@@ -22,7 +22,7 @@ const Post = ({ post }) => {
     const [isByUser, setIsByUser] = useState(null);
     const [wasDeleted, setWasDeleted] = useState(false);
     const [isDialogVisible, setIsDialogVisible] = useState(false);
-
+    const [isToggled, setIsToggled] = useState(false);
     //  Context
     const alertCtx = useContext(AlertContext);
     const userCtx = useContext(AuthContext);
@@ -69,6 +69,14 @@ const Post = ({ post }) => {
         setIsDialogVisible(true);
     };
 
+    const toggleComments = () => {
+        onToggle();
+        if (!isOpen) {
+            setIsToggled(true);
+        } else {
+            setIsToggled(false);
+        }
+    };
     return (<>
         <AlertDialogComp
             isVisible={isDialogVisible}
@@ -76,7 +84,7 @@ const Post = ({ post }) => {
             actionFn={deleteUserPost}
             header={"Delete post?"}
             body={"This cannot be undone."}
-            action={"Delete"} 
+            action={"Delete"}
         />
         {!wasDeleted &&
             <Card maxW='md' bgColor={colorCtx.background} variant="outline">
@@ -120,10 +128,10 @@ const Post = ({ post }) => {
                         },
                     }}
                 >
-                    <Button flex='1' variant='ghost' leftIcon={loggedUserLiked ? <AiFillLike /> : <AiOutlineLike />} onClick={clickLike}>
+                    <Button flex='1' variant='ghost' leftIcon={loggedUserLiked ? <AiFillLike /> : <AiOutlineLike />} onClick={() => clickLike()}>
                         Like {likes > 0 && likes}
                     </Button>
-                    <Button flex='1' variant='ghost' leftIcon={<BiChat />} onClick={onToggle}>
+                    <Button flex='1' variant='ghost' leftIcon={isToggled ? <BsChatFill /> : <BsChat />} onClick={() => toggleComments()}>
                         Comments
                     </Button>
                 </CardFooter>

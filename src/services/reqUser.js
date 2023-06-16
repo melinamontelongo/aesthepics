@@ -10,6 +10,15 @@ const DELETE_PIC_URL = `${USERS_URL}/delete/picture`;
 const ADD_FRIEND = `${USERS_URL}/friend`
 const REMOVE_FRIEND = `${USERS_URL}/unfriend`
 
+export const getRandomUsers = async(userID) => {
+    try {
+        const response = await axios.post(USERS_URL, {userID});
+        return response;
+    } catch (e) {
+        return e.response;
+    };
+};
+
 export const getUser = async (userID) => {
     try {
         const response = await axios.get(`${USERS_URL}/${userID}`);

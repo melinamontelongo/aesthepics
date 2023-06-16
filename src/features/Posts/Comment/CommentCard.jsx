@@ -10,22 +10,27 @@ import ColorContext from '../../../context/ColorContext';
 const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment }) => {
     const userCtx = useContext(AuthContext);
     const colorCtx = useContext(ColorContext);
-    
+
     const [isByUser, setIsByUser] = useState(null);
     const [isDialogVisible, setIsDialogVisible] = useState(false);
 
     useEffect(() => {
-        setIsDialogVisible(false);
         //  Determine if comment was made by current logged in user
         if (linkToId === userCtx.user._id) setIsByUser(true);
-    }, [userCtx.user, isDialogVisible]);
+    }, [userCtx.user]);
 
     const confirmDelete = () => {
         setIsDialogVisible(true);
     };
 
     return (<>
-        <AlertDialogComp isVisible={isDialogVisible} actionFn={() => deleteComment(commentId)} header={"Delete comment?"} body={"This cannot be undone."} action={"Delete"}/>
+        <AlertDialogComp
+            isVisible={isDialogVisible}
+            setVisible={setIsDialogVisible}
+            actionFn={() => deleteComment(commentId)}
+            header={"Delete comment?"}
+            body={"This cannot be undone."}
+            action={"Delete"} />
         <Card bgColor={colorCtx.background} variant="outline">
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">

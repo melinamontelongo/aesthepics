@@ -1,14 +1,14 @@
-import FriendCard from "./FriendCard";
 import { useGetFriends } from "../../../hooks/useGetFriends";
+import CardWAvatar from "../../../components/Card/CardWAvatar";
 
 const DisplayFriends = () => {
     const { friends, loading } = useGetFriends();
 
     return (
-        <>
+        <> Your friends
             {loading ? <p>Loading...</p> :
                 friends.length > 0 ? friends.map((friend) => {
-                    return <FriendCard key={`friend${friend._id}`} friendId={friend._id} friendName={friend.username} friendPic={friend.profilePic} friendBio={friend.bio} />
+                    return <CardWAvatar key={`friend${friend._id}`} linkToId={friend._id} avatarPic={friend.profilePic} name={friend.username} txt={friend.bio} />
                 })
                     :
                     <p>No friends :(</p>

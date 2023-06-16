@@ -8,7 +8,7 @@ const CardWAvatar = ({ avatarPic, linkToId, name, txt }) => {
     return (    
         <Card bgColor={colorCtx.background} variant="outline">
             <CardBody>
-                <Flex justifyContent="space-between" alignItems="center" gap="2rem">
+                <Flex justifyContent="start" alignItems="center" gap="3rem">
                     <Avatar size="xl" name={name} src={avatarPic} />
                     <Box>
                         <Text as={Link} to={`/profile/${linkToId}`} fontSize="lg" fontWeight="bold">{name}</Text>
