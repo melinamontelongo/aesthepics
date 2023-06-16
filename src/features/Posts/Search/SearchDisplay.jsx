@@ -3,6 +3,7 @@ import SearchResults from "./SearchResults";
 import SearchBar from "./SearchBar";
 import { getSearchPosts } from "../../../services/reqPost";
 import { getUser } from "../../../services/reqUser";
+import Loader from "../../../components/Loader/Loader";
 
 const SearchDisplay = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -40,9 +41,11 @@ const SearchDisplay = () => {
 
     return (
         <>
-            <SearchBar onChange={setSearchQuery}/>
-            {isLoading && <p>Loading...</p>}
-            <SearchResults results={results} />
+            <SearchBar onChange={setSearchQuery} />
+            {isLoading ? <Loader />
+                :
+                <SearchResults results={results} />
+            }
         </>
     );
 };

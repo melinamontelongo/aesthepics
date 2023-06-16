@@ -5,6 +5,7 @@ import { getRandomUsers } from "../services/reqUser";
 export const useGetRandomUsers = () => {
     const { user } = useGetUser();
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const getUsers = async () => {
         if (user._id) {
@@ -12,7 +13,8 @@ export const useGetRandomUsers = () => {
             if (randomUsers.status === 200) {
                 setUsers(randomUsers.data.users);
             };
-        }
+        };
+        setLoading(false);
     };
     useEffect(() => {
         if (user._id) {
@@ -20,6 +22,6 @@ export const useGetRandomUsers = () => {
         }
     }, [user._id]);
 
-    return { users }
+    return { users, loading }
 };
 

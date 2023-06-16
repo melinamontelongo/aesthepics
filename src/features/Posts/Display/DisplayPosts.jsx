@@ -17,7 +17,7 @@ const DisplayPosts = () => {
                     style={{ overflow: "hidden" }}
                     hasMore={hasMore}
                     loader={<Loader />}
-                    endMessage={<p>No more data to load.</p>}
+                    endMessage={<p>It seems like you have reached the end.</p>}
                 >
                     <Stack spacing={5} my="2rem">
                         {posts?.map((post, i) => {
