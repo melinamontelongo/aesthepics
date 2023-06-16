@@ -7,7 +7,7 @@ const Loader = () => {
     const colorCtx = useContext(ColorContext);
 
     return (
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" my="2rem">
             <Ring size={30} color={colorCtx.color} />
         </Flex>
     );
