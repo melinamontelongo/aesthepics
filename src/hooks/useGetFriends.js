@@ -14,7 +14,8 @@ export const useGetFriends = () => {
             const response = await getUser(friend);
             if (response.status === 200 && array.length === counter) {
                 //  Not repeated friends
-                if (friends.length > 0 && friends[friends.length - 1]._id === response.data.user._id) return;
+                const checkRepeated = friends.filter(f => f._id === response.data.user._id);
+                if (friends[friends?.length - 1]?._id === response.data.user._id || checkRepeated.length > 0) return;
                 setFriends([...friends, response.data.user]);
             } else {
                 setIsError(true);
