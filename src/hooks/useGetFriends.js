@@ -9,14 +9,16 @@ export const useGetFriends = () => {
 
     const getUserFriends = async () => {
         let counter = 0;
+        const friendsArr = [];
         await user?.friends?.forEach(async (friend, index, array) => {
             counter++;
             const response = await getUser(friend);
-            if (response.status === 200 && array.length === counter) {
+            if (response.status === 200) {
                 //  Not repeated friends
                 const checkRepeated = friends.filter(f => f._id === response.data.user._id);
                 if (friends[friends?.length - 1]?._id === response.data.user._id || checkRepeated.length > 0) return;
-                setFriends([...friends, response.data.user]);
+                friendsArr.push(response.data.user);
+                if (array.length === counter) setFriends(friendsArr);
             } else {
                 setIsError(true);
             };
