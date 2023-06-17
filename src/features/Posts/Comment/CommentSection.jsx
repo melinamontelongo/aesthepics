@@ -10,12 +10,15 @@ import { deleteComment } from '../../../services/reqPost';
 import CommentCard from "./CommentCard";
 import Loader from "../../../components/Loader/Loader";
 import AlertContext from "../../../context/AlertContext";
+import InfoText from "../../../components/Text/InfoText";
+import ColorContext from "../../../context/ColorContext";
 
 const CommentSection = ({ postId }) => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm();
     const { postComments, loading, getComments, setPostComments } = useGetPostComments(postId);
     const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
+    const colorCtx = useContext(ColorContext);
 
     const onSubmit = async (value) => {
         const comment = {
@@ -59,14 +62,17 @@ const CommentSection = ({ postId }) => {
                         />
                     })
                     :
-                    <p>No comments yet...</p>
+                    <InfoText text="No comments yet... Be the first one!" />
             }
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Flex alignItems="center" justifyContent="center" my="1rem">
-                    <TextareaCtrl placeholder="Add a comment..." register={register("comment")} textareaStyle={{ minHeight: "1rem", variant: "flushed" }} />
-                    <Button isLoading={isSubmitting} type="submit" mt="0.5rem">
-                        <Icon as={AiOutlineSend} />
+                    <TextareaCtrl
+                        placeholder="Add a comment..." register={register("comment")}
+                        textareaStyle={{ minHeight: "1rem", variant: "flushed", border: "0", borderBottom: "1px", borderRadius: "0", borderColor: `${colorCtx.accent}`}}
+                    />
+                    <Button isLoading={isSubmitting} type="submit" mt="0.5rem" ml="0.5rem" variant="ghost">
+                        <Icon fontSize="xl" as={AiOutlineSend}/>
                     </Button>
                 </Flex>
             </form>

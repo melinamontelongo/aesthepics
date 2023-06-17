@@ -33,7 +33,7 @@ const UserMenu = () => {
             </MenuButton>
             <MenuList bgColor={colorCtx.background} px="0.5rem">
                 <MenuItem as={Link} to={`/profile/${userCtx.user._id}`} bgColor={colorCtx.background} _hover={{ bgColor: colorCtx.accent }} rounded="md" py="0.5rem">
-                    <Text fontWeight="medium">See profile</Text>
+                    <Text fontWeight="bold">See profile</Text>
                     <Spacer />
                     <Icon as={CgProfile} />
                 </MenuItem>

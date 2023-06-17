@@ -16,7 +16,7 @@ export const useGetAllPostsPagination = () => {
             setHasMore(false);
         };
         const response = await getAllPosts(pageNumber);
-        if (response.status === 200) {
+        if (response?.status === 200) {
             let counter = 0;
             response.data.posts.forEach(async (post, index, array) => {
                 counter++;

@@ -3,7 +3,7 @@ import DisplayPosts from "../features/Posts/Display/DisplayPosts";
 
 const Home = () => {
     return (
-        <Container py="5rem">
+        <Container py={{ base: "5rem", md: "2rem"}}>
             <DisplayPosts />
         </Container>
     )

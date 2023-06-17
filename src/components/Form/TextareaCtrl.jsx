@@ -4,7 +4,13 @@ const TextareaCtrl = ({ defaultValue, label, error, register, placeholder, texta
     return (<>
         <FormControl isInvalid={error}>
             <FormLabel>{label}</FormLabel>
-            <Textarea defaultValue={defaultValue} {...register} placeholder={placeholder} {...textareaStyle}/>
+            <Textarea
+                _placeholder={{  fontStyle:"italic" }}
+                px="1rem"
+                defaultValue={defaultValue}
+                {...register}
+                placeholder={placeholder}
+                {...textareaStyle} />
             <FormErrorMessage>{error && error.message}</FormErrorMessage>
         </FormControl>
     </>

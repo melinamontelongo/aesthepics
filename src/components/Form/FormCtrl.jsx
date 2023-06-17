@@ -9,7 +9,19 @@ const FormCtrl = ({ value, defaultValue, inputId, fileRef, label, error, registe
     return (
         <FormControl isInvalid={error} w="100%">
             <FormLabel>{label}</FormLabel>
-            <Input id={inputId} defaultValue={defaultValue} value={value} ref={fileRef} {...(register && { ...register })} type={type} placeholder={placeholder} {...inputStyleProps} onChange={onChange} sx={sx}/>
+            <Input
+                _placeholder={{ fontStyle: "italic" }}
+                px="1rem"
+                id={inputId}
+                defaultValue={defaultValue}
+                value={value}
+                ref={fileRef}
+                {...(register && { ...register })}
+                type={type}
+                placeholder={placeholder}
+                {...inputStyleProps}
+                onChange={onChange}
+                sx={sx} />
             <FormErrorMessage>{error && error.message}</FormErrorMessage>
         </FormControl>
     );

@@ -4,7 +4,7 @@ import DisplayOtherUsers from "../features/Friends/Display/DisplayOtherUsers";
 
 const Friends = () => {
     return(
-        <Container py="5rem">
+        <Container py={{ base: "5rem", md: "2rem"}}>
             <DisplayFriends />
             <DisplayOtherUsers />
         </Container >

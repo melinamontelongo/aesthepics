@@ -55,8 +55,8 @@ const UpdatePic = () => {
     };
 
     return (<>
-        <ButtonGroup onClick={onOpen} cursor="pointer" justifyContent="center" alignItems="center" sx={{ '.img:hover ~ .ico, .ico:hover': { visibility: "visible" } }}>
-            <Image className="img" src={userCtx?.user?.profilePic} alt={userCtx?.user?.username} fallbackSrc="/profileFallback.png" rounded="100%" w="10rem" h="10rem" objectFit="cover" _hover={{ "filter": 'auto', "brightness": '50%' }} />
+        <ButtonGroup onClick={onOpen} cursor="pointer" justifyContent="center" alignItems="center" sx={{ '.img:hover ~ .ico, .ico:hover': { visibility: "visible" } }} w={{sm: "10rem", base: "6rem"}} h={{sm: "10rem", base: "6rem"}} >
+            <Image className="img" src={userCtx?.user?.profilePic} alt={userCtx?.user?.username} fallbackSrc="/profileFallback.png" rounded="100%" w={{sm: "10rem", base: "6rem"}} h={{sm: "10rem", base: "6rem"}} objectFit="cover" _hover={{ "filter": 'auto', "brightness": '50%' }} />
             <Icon className="ico" visibility="hidden" as={AiOutlinePlus} position="absolute" />
         </ButtonGroup>
 

@@ -7,10 +7,8 @@ const Profile = () => {
     let { userID } = useParams();
     
     return (
-        <Container py="5rem">
-
+        <Container py={{ base: "5rem", md: "2rem"}}>
             <ProfileDisplay userID={userID} />
-
         </Container>
     );
 };

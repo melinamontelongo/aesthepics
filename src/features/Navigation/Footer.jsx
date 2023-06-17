@@ -18,7 +18,7 @@ const Footer = () => {
     const colorCtx = useContext(ColorContext);
 
     return (
-        <Flex as="footer" p="1rem" boxShadow='md' pos="fixed" bottom={0} left={0} w="100%" zIndex={2} hideFrom="md" gap="1.5rem" align="center" justify={`${userCtx?.token ? "space-between" : "space-evenly"}`} bgColor={colorCtx.background} borderTopWidth="thin">
+        <Flex as="footer" p="1rem" pos="fixed" bottom={0} left={0} w="100%" zIndex={2} hideFrom="md" gap="1.5rem" align="center" justify={`${userCtx?.token ? "space-between" : "space-evenly"}`} bgColor={colorCtx.background} border={"0"} borderTop={"1px"} borderColor={colorCtx.accent}>
             {userCtx?.token ? (<>
                 <NavLink to="/" style={{ display: "flex", alignItems: "center" }}>
                     {({ isActive }) => (

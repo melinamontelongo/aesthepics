@@ -31,7 +31,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
             header={"Delete comment?"}
             body={"This cannot be undone."}
             action={"Delete"} />
-        <Card bgColor={colorCtx.background} variant="outline">
+        <Card bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent}>
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">
                     <Flex alignItems="flex-start" gap="1rem">

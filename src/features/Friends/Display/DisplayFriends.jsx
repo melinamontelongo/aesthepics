@@ -1,7 +1,8 @@
 import { useGetFriends } from "../../../hooks/useGetFriends";
 import CardWAvatar from "../../../components/Card/CardWAvatar";
-import { Text } from "@chakra-ui/react";
 import Loader from "../../../components/Loader/Loader";
+import InfoText from "../../../components/Text/InfoText";
+import H4 from "../../../components/Text/H4";
 
 const DisplayFriends = () => {
     const { friends, loading } = useGetFriends();
@@ -11,12 +12,12 @@ const DisplayFriends = () => {
             {loading ? <Loader /> :
                 friends.length > 0 ?
                     <>
-                        <Text mb="1rem" py="1rem">Your friends</Text>
+                        <H4 text="Your friends"/>
                         {friends.map((friend) => {
                             return <CardWAvatar key={`friend${friend._id}`} linkToId={friend._id} avatarPic={friend.profilePic} name={friend.username} txt={friend.bio} />
                         })}</>
                     :
-                    <Text mb="1rem" py="1rem">Seems like you have no friends :(</Text>
+                    <InfoText text="Seems like you have no friends. Why don't you add some?"/>
             }
 
         </>

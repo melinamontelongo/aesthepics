@@ -7,7 +7,6 @@ import {
     ModalCloseButton,
     useDisclosure,
     Button,
-    useColorModeValue
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import ColorContext from '../../context/ColorContext';

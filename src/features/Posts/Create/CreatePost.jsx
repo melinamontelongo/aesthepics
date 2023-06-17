@@ -9,6 +9,7 @@ import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AlertContext from "../../../context/AlertContext";
+import H4 from "../../../components/Text/H4";
 
 const CreatePost = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
@@ -31,6 +32,7 @@ const CreatePost = () => {
         };
     }
     return (<>
+        <H4 text="Create new post" />
         <Form btnTxt="Create new post" onSubmit={handleSubmit(onSubmit)} submitting={isSubmitting}>
             <FormLabel alignSelf="start" mb="0" pb="0">Choose a picture</FormLabel>
             <SubmitPic register={register("postPic", picValidation)} error={errors["postPic"]} />

@@ -8,8 +8,8 @@ const Navbar = () => {
     const colorCtx = useContext(ColorContext);
 
     return (
-        <Flex as="nav" p="1rem" pos="fixed" top={0} left={0} w="100%" zIndex={2} bgColor={colorCtx.background} hideFrom="md" borderBottomWidth="thin">
-            <Heading as={Link} to="/">Aesthepics</Heading>
+        <Flex as="nav" p="1rem" pos="fixed" top={0} left={0} w="100%" zIndex={2} bgColor={colorCtx.background} hideFrom="md" border={"0"} borderBottom={"1px"} borderColor={colorCtx.accent}>
+            <Heading as={Link} to="/" size="xl" fontFamily={"aesthepics"}>Aesthepics</Heading>
             <Spacer />
             <ColorToggler />
         </Flex>

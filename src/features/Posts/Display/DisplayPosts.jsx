@@ -1,23 +1,22 @@
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { useGetAllPostsPagination } from '../../../hooks/useGetPosts';
-import Post from './Post';
 import { Stack } from '@chakra-ui/react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Post from './Post';
 import Loader from '../../../components/Loader/Loader';
-import { useEffect, useState } from 'react';
+import InfoText from '../../../components/Text/InfoText';
 
 const DisplayPosts = () => {
     const { posts, isError, hasMore, getAllPostsState } = useGetAllPostsPagination();
-
     return (
-        <>
-            {posts?.length > 0 ?
+        <>{isError && <InfoText text="There was an error loading posts. Try again later!" />}
+            {!isError && posts?.length > 0 ?
                 <InfiniteScroll
                     dataLength={posts.length}
                     next={() => getAllPostsState()}
                     style={{ overflow: "hidden" }}
                     hasMore={hasMore}
                     loader={<Loader />}
-                    endMessage={<p>It seems like you have reached the end.</p>}
+                    endMessage={<InfoText text="It seems like you have reached the end." />}
                 >
                     <Stack spacing={5} my="2rem">
                         {posts?.map((post, i) => {
@@ -31,9 +30,9 @@ const DisplayPosts = () => {
                     </Stack>
                 </InfiniteScroll>
                 :
-                <Loader />
+                !isError && !hasMore && <InfoText text="Seems like there are no posts to display." />
             }
-            {isError && <p>There was an error loading posts...</p>}
+
         </>
     );
 };

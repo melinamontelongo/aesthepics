@@ -87,7 +87,7 @@ const Post = ({ post }) => {
             action={"Delete"}
         />
         {!wasDeleted &&
-            <Card maxW='md' bgColor={colorCtx.background} variant="outline">
+            <Card maxW='md' bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} mb="1rem">
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>

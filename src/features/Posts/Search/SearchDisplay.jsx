@@ -4,6 +4,8 @@ import SearchBar from "./SearchBar";
 import { getSearchPosts } from "../../../services/reqPost";
 import { getUser } from "../../../services/reqUser";
 import Loader from "../../../components/Loader/Loader";
+import H4 from "../../../components/Text/H4";
+import InfoText from "../../../components/Text/InfoText";
 
 const SearchDisplay = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -15,10 +17,8 @@ const SearchDisplay = () => {
         if (result.status === 200) {
             let counter = 0;
             result.data.posts.forEach(async (post, index, array) => {
-                console.log(post)
                 counter++;
                 const user = await getUser(post.userOwner);
-                console.log("user from search", user)
                 post.username = user.data.user.username;
                 post.profilePic = user.data.user.profilePic;
                 if (array.length === counter) setResults([...results, ...result.data.posts]);
@@ -41,10 +41,13 @@ const SearchDisplay = () => {
 
     return (
         <>
+            <H4 text="Search" />
             <SearchBar onChange={setSearchQuery} />
             {isLoading ? <Loader />
                 :
-                <SearchResults results={results} />
+                results?.length > 0 ?
+                    <SearchResults results={results} />
+                    : searchQuery.length > 0 && !isLoading && <InfoText text="No results. Try again!" />
             }
         </>
     );

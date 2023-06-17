@@ -1,9 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Icon } from "@chakra-ui/react";
 import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import { addFriend, removeFriend } from "../../../services/reqUser";
 import AlertContext from "../../../context/AlertContext";
-
+import { HiOutlineUserAdd, HiOutlineUserRemove } from "react-icons/hi";
 
 const FriendBtn = ({ isAdd, friendID }) => {
     const userCtx = useContext(AuthContext);
@@ -25,7 +25,7 @@ const FriendBtn = ({ isAdd, friendID }) => {
     };
 
     return (<>
-        <Button onClick={() => friend()}>{isAdd ? "Add Friend" : "Remove Friend"}</Button>
+        <Button mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }} onClick={() => friend()}>{isAdd ? <>Add Friend <Icon as={HiOutlineUserAdd} ms="0.5rem"/></> : <>Unfriend <Icon as={HiOutlineUserRemove} ms="0.5rem"/></>}</Button>
     </>
     )
 }
