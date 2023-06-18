@@ -8,7 +8,7 @@ const Navbar = () => {
     const colorCtx = useContext(ColorContext);
 
     return (
-        <Flex as="nav" p="1rem" pos="fixed" top={0} left={0} w="100%" zIndex={2} bgColor={colorCtx.background} hideFrom="md" border={"0"} borderBottom={"1px"} borderColor={colorCtx.accent}>
+        <Flex as="nav" p="1rem" pos="fixed" top={0} left={0} w="100%" zIndex={2} bgColor={colorCtx.background} hideFrom="md" border={"0"} borderBottom={"1px"} sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
             <Heading as={Link} to="/" size="xl" fontFamily={"aesthepics"}>Aesthepics</Heading>
             <Spacer />
             <ColorToggler />

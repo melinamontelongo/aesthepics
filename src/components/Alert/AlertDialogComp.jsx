@@ -41,10 +41,10 @@ const AlertDialogComp = ({ isVisible, setVisible, actionFn, header, body, action
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={() => closeAndSetVisible()}>
+                        <Button variant="outline" ref={cancelRef} onClick={() => closeAndSetVisible()}>
                             Cancel
                         </Button>
-                        <Button colorScheme='red' onClick={() => actionAndClose()} ml={3}>
+                        <Button variant="outline" onClick={() => actionAndClose()} ml={3}>
                             {action}
                         </Button>
                     </AlertDialogFooter>

@@ -59,7 +59,7 @@ const ProfileDisplay = ({ userID }) => {
                         }
                         {/* for sm to md screens */}
                         <Box display={{ md: "none" }}>
-                            <Text mb="1rem" fontSize="4xl">{userProfile?.username}</Text>
+                            <Text mb="1rem" fontSize="2xl" fontWeight={"bold"}>{userProfile?.username}</Text>
                             {/* if it's user's profile allow profile edit // else show friend functionality */}
                             {isOwner ?
                                 <ModalWBtn btnTxt="Edit Profile" modalTitle="Edit your profile" modalBody={<UpdateForm />} />
@@ -71,15 +71,15 @@ const ProfileDisplay = ({ userID }) => {
                     <GridItem>
                         {/* for md+ screens*/}
                         <Flex justifyContent="space-between" alignItems="center" mb="2rem" display={{ base: "none", md: "flex" }}>
-                            <Text fontSize="4xl" fontWeight={"bold"}>{userProfile?.username}</Text>
+                            <Text fontSize="3xl" fontWeight={"bold"}>{userProfile?.username}</Text>
                             {isOwner ?
                                 <ModalWBtn btnTxt="Edit Profile" modalTitle="Edit your profile" modalBody={<UpdateForm />} />
                                 :
                                 userProfile._id && isAddFriend !== null && <FriendBtn isAdd={isAddFriend} friendID={userProfile._id} />
                             }
                         </Flex>
-                        <Text fontSize="lg" >{userProfile?.firstName} {userProfile?.lastName}</Text>
-                        <Text fontSize="lg" >{userProfile?.bio}</Text>
+                        <Text fontSize="xl" fontWeight={"bold"}>{userProfile?.firstName} {userProfile?.lastName}</Text>
+                        <Text fontSize="md" >{userProfile?.bio}</Text>
                     </GridItem>
                 </Grid>
 

@@ -14,7 +14,7 @@ const ProfileDisplayPosts = ({ posts, userInfo }) => {
     const colorCtx = useContext(ColorContext);
 
     const displayPost = (post) => {
-        if(userCtx.token){
+        if (userCtx.token) {
             post.username = userInfo.username;
             post.userOwner = userInfo._id;
             post.profilePic = userInfo.profilePic;
@@ -34,14 +34,14 @@ const ProfileDisplayPosts = ({ posts, userInfo }) => {
                     objectFit="cover"
                     onClick={() => displayPost(post)} />
             })
-        :
-        <InfoText text="This user has no posts..."/>
-        }
+                :
+                <InfoText text="This user has no posts..." />
+            }
         </Flex >
 
         <Modal isOpen={isOpen} onClose={onClose} background="none">
-            <ModalOverlay zIndex={"40"}/>
-            <ModalContent background="none" shadow="none">
+            <ModalOverlay zIndex={"40"} />
+            <ModalContent background="none" shadow="none" width="max-content" border="none">
                 <Post
                     post={currentPost}
                 />

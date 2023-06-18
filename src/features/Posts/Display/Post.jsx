@@ -87,20 +87,20 @@ const Post = ({ post }) => {
             action={"Delete"}
         />
         {!wasDeleted &&
-            <Card maxW='md' bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} mb="1rem">
+            <Card maxW='md' bgColor={colorCtx.background} boxShadow="none" border={"1px"} borderRadius={"0"} mb="1rem" sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                             <Avatar name={username} src={profilePic} />
                             <Box>
                                 <Heading as={Link} to={`/profile/${userOwner}`} size='md'>{username}</Heading>
-                                <Tooltip hasArrow label={time} bgColor={colorCtx.accent} color={colorCtx.color} fontSize="sm">
+                                <Tooltip label={time} bgColor={colorCtx.accent} color={colorCtx.color} fontSize="sm">
                                     <Text fontSize="sm" cursor="pointer">{date}</Text>
                                 </Tooltip>
                             </Box>
                         </Flex>
                         {isByUser &&
-                            <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} hasArrow label="Delete post">
+                            <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} label="Delete post">
                                 <span>
                                     <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => confirmDelete()} />
                                 </span>
@@ -114,7 +114,8 @@ const Post = ({ post }) => {
                     </Text>
                 </CardBody>
                 <Image
-                    objectFit='cover'
+                    objectFit='contain'
+                    maxH="30rem"
                     src={picture}
                     alt={`${username}'s post photo`}
                 />

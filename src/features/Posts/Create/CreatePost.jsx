@@ -10,11 +10,13 @@ import AuthContext from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AlertContext from "../../../context/AlertContext";
 import H4 from "../../../components/Text/H4";
+import ColorContext from "../../../context/ColorContext";
 
 const CreatePost = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
     const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
+    const colorCtx = useContext(ColorContext);
     const navigate = useNavigate();
 
     const onSubmit = async (values) => {
@@ -36,7 +38,12 @@ const CreatePost = () => {
         <Form btnTxt="Create new post" onSubmit={handleSubmit(onSubmit)} submitting={isSubmitting}>
             <FormLabel alignSelf="start" mb="0" pb="0">Choose a picture</FormLabel>
             <SubmitPic register={register("postPic", picValidation)} error={errors["postPic"]} />
-            <TextareaCtrl label="Description" register={register("description", descriptionValidation)} error={errors["description"]} />
+            <TextareaCtrl
+                label="Description"
+                register={register("description", descriptionValidation)}
+                error={errors["description"]} 
+                sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
+                />
         </Form></>
     );
 };

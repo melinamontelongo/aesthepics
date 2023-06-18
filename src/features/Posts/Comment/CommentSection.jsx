@@ -1,5 +1,5 @@
 import TextareaCtrl from "../../../components/Form/TextareaCtrl";
-import { Button, Flex, Icon } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai"
 import { useForm } from "react-hook-form";
 import { commentPost } from "../../../services/reqPost";
@@ -62,17 +62,20 @@ const CommentSection = ({ postId }) => {
                         />
                     })
                     :
-                    <InfoText text="No comments yet... Be the first one!" />
+                    <Box mx="1rem">
+                        <InfoText text="No comments yet... Be the first one!" />
+                    </Box>
             }
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Flex alignItems="center" justifyContent="center" my="1rem">
                     <TextareaCtrl
                         placeholder="Add a comment..." register={register("comment")}
-                        textareaStyle={{ minHeight: "1rem", variant: "flushed", border: "0", borderBottom: "1px", borderRadius: "0", borderColor: `${colorCtx.accent}`}}
+                        textareaStyle={{ minHeight: "1rem", border: "0", borderBottom: "1px", borderRadius: "0", borderColor: `${colorCtx.accent}` }}
+                        sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
                     />
-                    <Button isLoading={isSubmitting} type="submit" mt="0.5rem" ml="0.5rem" variant="ghost">
-                        <Icon fontSize="xl" as={AiOutlineSend}/>
+                    <Button isLoading={isSubmitting} type="submit" mt="0.5rem" ml="0.5rem" variant="outline">
+                        <Icon fontSize="xl" as={AiOutlineSend} />
                     </Button>
                 </Flex>
             </form>

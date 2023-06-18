@@ -6,7 +6,7 @@ import ColorContext from '../../context/ColorContext';
 const CardWAvatar = ({ avatarPic, linkToId, name, txt }) => {
     const colorCtx = useContext(ColorContext);
     return (    
-        <Card bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} mb="1rem">
+        <Card bgColor={colorCtx.background} boxShadow="none" borderBottom={"1px"} borderRadius={"0"} mb="1rem" sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
             <CardBody>
                 <Flex justifyContent="start" alignItems="center" gap="3rem">
                     <Avatar size="xl" name={name} src={avatarPic} />

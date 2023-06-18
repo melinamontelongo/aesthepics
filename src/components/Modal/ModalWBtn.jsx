@@ -16,7 +16,7 @@ const ModalWBtn = ({ btnTxt, modalTitle, modalBody }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
-            <Button onClick={onOpen} mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }}>{btnTxt}</Button>
+            <Button onClick={onOpen} mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }} variant="outline">{btnTxt}</Button>
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay zIndex={"40"}/>

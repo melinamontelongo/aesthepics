@@ -31,7 +31,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
             header={"Delete comment?"}
             body={"This cannot be undone."}
             action={"Delete"} />
-        <Card bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent}>
+        <Card bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">
                     <Flex alignItems="flex-start" gap="1rem">
@@ -42,7 +42,7 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
                         </Box>
                     </Flex>
                     {isByUser &&
-                        <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} hasArrow label="Delete comment">
+                        <Tooltip color={colorCtx.color} bgColor={colorCtx.accent} label="Delete comment">
                             <span>
                                 <Icon cursor="pointer" as={AiOutlineDelete} onClick={() => confirmDelete()} />
                             </span>

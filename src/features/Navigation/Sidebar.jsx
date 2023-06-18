@@ -19,8 +19,8 @@ const Sidebar = () => {
     const userCtx = useContext(AuthContext);
 
     return (
-        <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" bgColor={colorCtx.background} border={"0"} borderRight={"1px"} borderColor={colorCtx.accent}>
-            <Box mx={{xl: "2rem", lg: "1.2rem"}} mt="2rem" hideBelow="lg">
+        <Box pos="fixed" left={0} top={0} bottom={0} w={{ md: "10%", lg: "20%" }} zIndex={1} hideBelow="md" bgColor={colorCtx.background} border={"0"} borderRight={"1px"} sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToBottom }}>
+            <Box mx={{ xl: "2rem", lg: "1.2rem" }} mt="2rem" hideBelow="lg">
                 <Heading as={Link} to="/" size={{ xl: "xl", lg: "lg" }} fontFamily={"aesthepics"}>Aesthepics</Heading>
             </Box>
             <Box mx="2rem" mt="2rem" hideFrom="lg">

@@ -32,7 +32,7 @@ const UserMenu = () => {
                 </Box>
             </MenuButton>
             <MenuList bgColor={colorCtx.background} px="0.5rem">
-                <MenuItem as={Link} to={`/profile/${userCtx.user._id}`} bgColor={colorCtx.background} _hover={{ bgColor: colorCtx.accent }} rounded="md" py="0.5rem">
+                <MenuItem as={Link} to={`/profile/${userCtx.user._id}`} bgColor={colorCtx.background} border="1px solid transparent" _hover={{ border:"1px solid", borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }} py="0.5rem">
                     <Text fontWeight="bold">See profile</Text>
                     <Spacer />
                     <Icon as={CgProfile} />

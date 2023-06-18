@@ -1,16 +1,18 @@
 import { FormControl, FormLabel, Textarea, FormErrorMessage } from '@chakra-ui/react'
 
-const TextareaCtrl = ({ defaultValue, label, error, register, placeholder, textareaStyle }) => {
+const TextareaCtrl = ({ defaultValue, label, error, register, placeholder, textareaStyle, sx }) => {
     return (<>
         <FormControl isInvalid={error}>
             <FormLabel>{label}</FormLabel>
             <Textarea
-                _placeholder={{  fontStyle:"italic" }}
+                _placeholder={{ fontStyle: "italic" }}
                 px="1rem"
                 defaultValue={defaultValue}
                 {...register}
                 placeholder={placeholder}
-                {...textareaStyle} />
+                {...textareaStyle}
+                sx={sx}
+            />
             <FormErrorMessage>{error && error.message}</FormErrorMessage>
         </FormControl>
     </>
