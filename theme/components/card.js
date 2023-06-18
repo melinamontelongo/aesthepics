@@ -7,9 +7,9 @@ const { definePartsStyle, defineMultiStyleConfig } =
 // define custom styles for xl size
 const baseStyle = definePartsStyle({
     container: {
-        bg: "#faf8f7",
+        bg: "#F2F2F2",
         _dark: {
-            bg: "#0f0f0f",
+            bg: "#141414",
         },
     }
 });

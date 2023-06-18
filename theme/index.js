@@ -9,6 +9,7 @@ import { avatarTheme } from './components/avatar';
 import { tooltipTheme } from './components/tooltip';
 import { menuTheme } from './components/menu';
 import { alertTheme } from './components/alert';
+import { dividerTheme } from './components/divider';
 
 const theme = extendTheme({
   config,
@@ -22,6 +23,7 @@ const theme = extendTheme({
     Tooltip: tooltipTheme,
     Menu: menuTheme,
     Alert: alertTheme,
+    Divider: dividerTheme,
   }
 });
 

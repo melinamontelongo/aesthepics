@@ -7,6 +7,7 @@ const TextareaCtrl = ({ defaultValue, label, error, register, placeholder, texta
             <Textarea
                 _placeholder={{ fontStyle: "italic" }}
                 px="1rem"
+                borderRadius="0"
                 defaultValue={defaultValue}
                 {...register}
                 placeholder={placeholder}

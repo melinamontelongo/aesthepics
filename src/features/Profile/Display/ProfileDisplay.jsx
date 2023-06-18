@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext";
-import { Box, Flex, Text, Grid, GridItem, useDisclosure, Image, Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { Box, Flex, Text, Grid, GridItem, useDisclosure, Image, Modal, ModalContent, ModalOverlay, Divider } from '@chakra-ui/react';
 
 import UpdateForm from "../Update/UpdateForm";
 import UpdatePic from "../Update/UpdatePic";
@@ -49,7 +49,7 @@ const ProfileDisplay = ({ userID }) => {
         {userCtx.loading ? <Loader />
             :
             <>
-                <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem" borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} pb="2rem">
+                <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem" /* borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} pb="2rem" */>
                     <Flex gap="2rem">
                         {/* if it's the user's profile, allow picture edit // else just show profile image */}
                         {isOwner ?
@@ -82,6 +82,7 @@ const ProfileDisplay = ({ userID }) => {
                         <Text fontSize="md" >{userProfile?.bio}</Text>
                     </GridItem>
                 </Grid>
+                <Divider my="2rem" orientation='horizontal' />
 
                 <ProfileDisplayPosts posts={userPosts} userInfo={userProfile} />
             </>
