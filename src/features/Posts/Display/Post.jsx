@@ -11,6 +11,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
 import AlertContext from "../../../context/AlertContext";
 import ColorContext from "../../../context/ColorContext";
+import { motion } from "framer-motion";
+import { postVariants } from "../../../utils/componentVariants";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;
@@ -87,7 +89,9 @@ const Post = ({ post }) => {
             action={"Delete"}
         />
         {!wasDeleted &&
-            <Card maxW='md' bgColor={colorCtx.background} boxShadow="none" border={"1px"} borderRadius={"0"} mb="1rem" sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
+            <Card
+                as={motion.div} variants={postVariants} initial={"initial"} animate={"final"}
+                maxW='md' bgColor={colorCtx.background} boxShadow="none" border={"1px"} borderRadius={"0"} mb="1rem" sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
@@ -137,7 +141,7 @@ const Post = ({ post }) => {
                     </Button>
                 </CardFooter>
 
-                <Collapse in={isOpen} animateOpacity>
+                <Collapse in={isOpen}>
                     <CommentSection postId={_id} />
                 </Collapse>
 

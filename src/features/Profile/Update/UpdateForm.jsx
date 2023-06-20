@@ -7,12 +7,14 @@ import { userUpdate } from '../../../services/reqUser';
 import AuthContext  from '../../../context/AuthContext';
 import { useContext } from 'react';
 import AlertContext from '../../../context/AlertContext';
+import ColorContext from '../../../context/ColorContext';
 
 const UpdateForm = () => {
     const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
     const userCtx = useContext(AuthContext);
     const alertCtx = useContext(AlertContext);
-
+    const colorCtx = useContext(ColorContext);
+    
     const onSubmit = async (values) => {
         const userID = userCtx.user._id;
         const response = await userUpdate({...values, userID}, { headers: { authorization: userCtx.token } });
@@ -45,6 +47,7 @@ const UpdateForm = () => {
                 label="Your bio"
                 error={errors["bio"]} 
                 defaultValue={userCtx.user.bio}
+                sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
                 />
         </Form>
     );

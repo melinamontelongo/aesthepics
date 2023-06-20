@@ -1,5 +1,7 @@
 import { VStack, Button } from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
+import { motion } from "framer-motion";
+import { buttonVariants } from "../../utils/componentVariants";
 
 const Form = ({ onSubmit, btnTxt, submitting, children }) => {
     return (
@@ -8,7 +10,7 @@ const Form = ({ onSubmit, btnTxt, submitting, children }) => {
                 {children}
                 {
                     btnTxt &&
-                    <Button
+                    <Button as={motion.button} variants={buttonVariants} whileTap={"tap"} whileHover={"hover"}
                         isLoading={submitting}
                         spinner={<Loader />}
                         colorScheme="solid"

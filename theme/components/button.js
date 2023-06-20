@@ -1,4 +1,4 @@
-import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
+import { defineStyle, defineStyleConfig, transition } from '@chakra-ui/react';
 
 const outline = defineStyle({
     border: "1px solid",
@@ -32,7 +32,7 @@ const solid = defineStyle({
     },
     _active: {
         bg: "linear-gradient(to right, #ffc37a, #73ffab, #bc75ff, #ff789a)",
-    }
+    },
 });
 
 const ghost = defineStyle({

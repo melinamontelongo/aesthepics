@@ -1,11 +1,12 @@
-import { Card, CardBody, Text, Avatar, Flex, Box, useColorModeValue, Icon, Tooltip } from '@chakra-ui/react';
+import { Card, CardBody, Text, Avatar, Flex, Box, Icon, Tooltip } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useGetUserID } from '../../../hooks/useGetUser';
 import { useContext, useEffect, useState } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import AlertDialogComp from '../../../components/Alert/AlertDialogComp';
 import AuthContext from '../../../context/AuthContext';
 import ColorContext from '../../../context/ColorContext';
+import { motion } from 'framer-motion';
+import { commentVariants } from '../../../utils/componentVariants';
 
 const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment }) => {
     const userCtx = useContext(AuthContext);
@@ -31,7 +32,10 @@ const CommentCard = ({ avatarPic, linkToId, name, txt, commentId, deleteComment 
             header={"Delete comment?"}
             body={"This cannot be undone."}
             action={"Delete"} />
-        <Card bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"} sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
+        <Card
+            as={motion.div} variants={commentVariants} initial={"initial"} animate={"final"}
+            bgColor={colorCtx.background} boxShadow="none" border={"0"} borderBottom={"1px"} borderRadius={"0"}
+            sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}>
             <CardBody>
                 <Flex justifyContent="space-between" gap="1rem">
                     <Flex alignItems="flex-start" gap="1rem">
