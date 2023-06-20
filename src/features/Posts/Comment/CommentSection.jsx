@@ -70,7 +70,7 @@ const CommentSection = ({ postId }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Flex alignItems="center" justifyContent="center" my="1rem">
                     <TextareaCtrl
-                        placeholder="Add a comment..." register={register("comment")}
+                        placeholder="Add a comment..." register={register("comment", { required: true})}
                         textareaStyle={{ minHeight: "1rem", border: "0", borderBottom: "1px", borderRadius: "0", borderColor: `${colorCtx.accent}` }}
                         sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
                     />
