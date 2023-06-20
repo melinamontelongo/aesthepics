@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import AlertContext from '../../context/AlertContext';
 
 const AuthForm = ({ authType, btnTxt }) => {
-    const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm();
+    const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm();
     const [_, setCookie] = useCookies(["access_token"]);
     
     const alertCtx = useContext(AlertContext);
@@ -27,6 +27,7 @@ const AuthForm = ({ authType, btnTxt }) => {
         } else {
             alertCtx.error(response.data.message);
         };
+        reset();
     };
 
     return (<>

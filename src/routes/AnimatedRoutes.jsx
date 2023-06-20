@@ -8,7 +8,7 @@ import Search from "./pages/Search";
 
 export const AnimatedRoutes = () => {
     const location = useLocation();
-    console.log(location)
+
     return (
         <Routes location={location} key={location.key}>
             <Route path="/" element={<Home />} />

@@ -3,7 +3,7 @@ import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai"
 import { useForm } from "react-hook-form";
 import { commentPost } from "../../../services/reqPost";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import { useGetPostComments } from '../../../hooks/useGetPostComments';
 import { deleteComment } from '../../../services/reqPost';
@@ -70,9 +70,8 @@ const CommentSection = ({ postId }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Flex alignItems="center" justifyContent="center" my="1rem">
                     <TextareaCtrl
-                        placeholder="Add a comment..." register={register("comment", { required: true})}
-                        textareaStyle={{ minHeight: "1rem", border: "0", borderBottom: "1px", borderRadius: "0", borderColor: `${colorCtx.accent}` }}
-                        sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
+                        placeholder="Add a comment..." register={register("comment", { required: true })}
+                        variant={"flushed"}
                     />
                     <Button isLoading={isSubmitting} type="submit" mt="0.5rem" ml="0.5rem" variant="outline">
                         <Icon fontSize="xl" as={AiOutlineSend} />

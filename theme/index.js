@@ -10,6 +10,8 @@ import { tooltipTheme } from './components/tooltip';
 import { menuTheme } from './components/menu';
 import { alertTheme } from './components/alert';
 import { dividerTheme } from './components/divider';
+import { textareaTheme } from './components/textarea';
+import { inputTheme } from './components/input';
 
 const theme = extendTheme({
   config,
@@ -24,6 +26,8 @@ const theme = extendTheme({
     Menu: menuTheme,
     Alert: alertTheme,
     Divider: dividerTheme,
+    Textarea: textareaTheme,
+    Input: inputTheme,
   }
 });
 

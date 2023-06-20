@@ -36,13 +36,12 @@ const CreatePost = () => {
     return (<>
         <H4 text="Create new post" />
         <Form btnTxt="Create new post" onSubmit={handleSubmit(onSubmit)} submitting={isSubmitting}>
-            <FormLabel alignSelf="start" mb="0" pb="0">Choose a picture</FormLabel>
+            <FormLabel alignSelf="start" mb="0" pb="0" fontWeight={"bold"}>Choose a picture</FormLabel>
             <SubmitPic register={register("postPic", picValidation)} error={errors["postPic"]} />
             <TextareaCtrl
                 label="Description"
                 register={register("description", descriptionValidation)}
                 error={errors["description"]} 
-                sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
                 />
         </Form></>
     );
