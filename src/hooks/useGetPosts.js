@@ -10,10 +10,13 @@ export const useGetAllPostsPagination = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [isError, setIsError] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const getAllPostsState = async () => {
+        setLoading(true);
         if(pageNumber > 0 && pageNumber >= totalPages ){
             setHasMore(false);
+            setLoading(false);
         };
         const response = await getAllPosts(pageNumber);
         if (response?.status === 200) {
@@ -30,12 +33,13 @@ export const useGetAllPostsPagination = () => {
         } else {
             setIsError(true);
         };
+        setLoading(false);
     };
 
     useEffect(() => {
             getAllPostsState();
     }, []);
-    return { posts, isError, hasMore, getAllPostsState };
+    return { posts, isError, hasMore, loading, getAllPostsState };
 };
 
 export const useGetOnePost = (postId) => {

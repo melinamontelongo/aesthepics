@@ -6,9 +6,11 @@ import Loader from '../../../components/Loader/Loader';
 import InfoText from '../../../components/Text/InfoText';
 
 const DisplayPosts = () => {
-    const { posts, isError, hasMore, getAllPostsState } = useGetAllPostsPagination();
+    const { posts, isError, hasMore, loading, getAllPostsState } = useGetAllPostsPagination();
     return (
-        <>{isError && <InfoText text="There was an error loading posts. Try again later!" />}
+        <>
+            {loading && <Loader />}
+            {isError && <InfoText text="There was an error loading posts. Try again later!" />}
             {!isError && posts?.length > 0 ?
                 <InfiniteScroll
                     dataLength={posts.length}
@@ -30,9 +32,8 @@ const DisplayPosts = () => {
                     </Stack>
                 </InfiniteScroll>
                 :
-                !isError && !hasMore && <InfoText text="Seems like there are no posts to display." />
+                !hasMore && !loading && <InfoText text="Seems like there are no posts to display." />
             }
-
         </>
     );
 };
