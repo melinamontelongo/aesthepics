@@ -19,4 +19,5 @@ export const styles = {
 export const fonts = {
     aesthepics: `'Oleo Script Swash Caps', sans-serif`,
     body: `'Poppins', sans-serif`,
+    heading: `'Poppins', sans-serif`,
 };

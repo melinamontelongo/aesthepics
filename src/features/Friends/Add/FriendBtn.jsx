@@ -25,7 +25,13 @@ const FriendBtn = ({ isAdd, friendID }) => {
     };
 
     return (<>
-        <Button mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }} variant="outline" onClick={() => friend()}>{isAdd ? <>Add Friend <Icon as={HiOutlineUserAdd} ms="0.5rem"/></> : <>Unfriend <Icon as={HiOutlineUserRemove} ms="0.5rem"/></>}</Button>
+        <Button mx={{ md: "0.2rem", lg: "1rem" }} py={{ md: "0.2rem", lg: "1.5rem" }} variant="outline" onClick={() => friend()}>
+            {isAdd ?
+                <>Add Friend <Icon as={HiOutlineUserAdd} ms="0.5rem" /></>
+                :
+                <>Unfriend <Icon as={HiOutlineUserRemove} ms="0.5rem" /></>
+            }
+        </Button>
     </>
     )
 }

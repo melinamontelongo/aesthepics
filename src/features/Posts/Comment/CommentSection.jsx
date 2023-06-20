@@ -1,12 +1,12 @@
-import TextareaCtrl from "../../../components/Form/TextareaCtrl";
 import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai"
 import { useForm } from "react-hook-form";
 import { commentPost } from "../../../services/reqPost";
 import { useContext } from "react";
-import AuthContext from "../../../context/AuthContext";
 import { useGetPostComments } from '../../../hooks/useGetPostComments';
 import { deleteComment } from '../../../services/reqPost';
+import AuthContext from "../../../context/AuthContext";
+import TextareaCtrl from "../../../components/Form/TextareaCtrl";
 import CommentCard from "./CommentCard";
 import Loader from "../../../components/Loader/Loader";
 import AlertContext from "../../../context/AlertContext";

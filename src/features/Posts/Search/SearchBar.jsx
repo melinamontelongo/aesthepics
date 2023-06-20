@@ -1,6 +1,4 @@
-
 import FormCtrl from "../../../components/Form/FormCtrl";
-
 
 const SearchBar = ({ onChange }) => {
     return (<>

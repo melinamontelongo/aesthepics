@@ -1,18 +1,18 @@
-import { Card, CardHeader, CardBody, CardFooter, Flex, Heading, Avatar, Box, Text, Image, Button, useColorModeValue, Tooltip, useDisclosure, Collapse, Icon } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { Card, CardHeader, CardBody, CardFooter, Flex, Heading, Avatar, Box, Text, Image, Button, Tooltip, useDisclosure, Collapse, Icon } from "@chakra-ui/react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { BsChatFill, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import CommentSection from "../Comment/CommentSection";
 import { deletePost, likePost } from "../../../services/reqPost";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../../context/AuthContext";
 import { dateFormatter } from "../../../utils/dateFormatter";
 import { AiOutlineDelete } from "react-icons/ai";
-import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
-import AlertContext from "../../../context/AlertContext";
-import ColorContext from "../../../context/ColorContext";
 import { motion } from "framer-motion";
 import { postVariants } from "../../../utils/componentVariants";
+import AlertContext from "../../../context/AlertContext";
+import ColorContext from "../../../context/ColorContext";
+import AuthContext from "../../../context/AuthContext";
+import CommentSection from "../Comment/CommentSection";
+import AlertDialogComp from "../../../components/Alert/AlertDialogComp";
 
 const Post = ({ post }) => {
     const { _id, createdAt, description, likeCount, picture, profilePic, userOwner, username } = post;

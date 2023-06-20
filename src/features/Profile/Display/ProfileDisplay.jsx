@@ -1,20 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext";
-import { Box, Flex, Text, Grid, GridItem, useDisclosure, Image, Modal, ModalContent, ModalOverlay, Divider } from '@chakra-ui/react';
-
+import { Box, Flex, Text, Grid, GridItem, Image, Divider } from '@chakra-ui/react';
+import { getUserPosts } from "../../../services/reqPost";
+import { getUser } from "../../../services/reqUser";
 import UpdateForm from "../Update/UpdateForm";
 import UpdatePic from "../Update/UpdatePic";
 import ModalWBtn from "../../../components/Modal/ModalWBtn";
-import { getUserPosts } from "../../../services/reqPost";
-import { getUser } from "../../../services/reqUser";
 import FriendBtn from "../../Friends/Add/FriendBtn";
 import ProfileDisplayPosts from "../../Posts/Display/ProfileDisplayPosts";
 import Loader from "../../../components/Loader/Loader";
-import ColorContext from "../../../context/ColorContext";
 
 const ProfileDisplay = ({ userID }) => {
     const userCtx = useContext(AuthContext);
-    const colorCtx = useContext(ColorContext);
     const [userPosts, setUserPosts] = useState([]);
     const [userProfile, setUserProfile] = useState({});
     const [isOwner, setIsOwner] = useState(null);
@@ -49,13 +46,13 @@ const ProfileDisplay = ({ userID }) => {
         {userCtx.loading ? <Loader />
             :
             <>
-                <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem" /* borderBottom={"1px"} borderRadius={"0"} borderColor={colorCtx.accent} pb="2rem" */>
+                <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap="2rem">
                     <Flex gap="2rem">
                         {/* if it's the user's profile, allow picture edit // else just show profile image */}
                         {isOwner ?
                             <UpdatePic />
                             :
-                            <Image className="img" src={userProfile?.profilePic} alt={userProfile?.username} fallbackSrc="/profileFallback.png" rounded="100%" w={{sm: "10rem", base: "6rem"}} h={{sm: "10rem", base: "6rem"}} objectFit="cover"/>
+                            <Image className="img" src={userProfile?.profilePic} alt={userProfile?.username} fallbackSrc="/profileFallback.png" rounded="100%" w={{sm: "10rem", base: "6rem"}} h={{sm: "10rem", base: "6rem"}} maxW="10rem" maxH="10rem" objectFit="cover"/>
                         }
                         {/* for sm to md screens */}
                         <Box display={{ md: "none" }}>

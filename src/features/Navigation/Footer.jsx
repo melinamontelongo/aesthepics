@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useColorModeValue, Flex, Divider, Box, Icon, Button } from "@chakra-ui/react";
+import { Flex, Divider, Box, Icon } from "@chakra-ui/react";
 
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { RiSearch2Line, RiSearch2Fill, RiAddBoxFill, RiAddBoxLine } from "react-icons/ri";

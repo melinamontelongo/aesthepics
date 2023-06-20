@@ -1,8 +1,8 @@
 import { Flex, Heading, Spacer } from "@chakra-ui/react"
-import ColorToggler from "../../components/ColorToggler/ColorToggler";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import ColorContext from "../../context/ColorContext";
+import ColorToggler from "../../components/ColorToggler/ColorToggler";
 
 const Navbar = () => {
     const colorCtx = useContext(ColorContext);

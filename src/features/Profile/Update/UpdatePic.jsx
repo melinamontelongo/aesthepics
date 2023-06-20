@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import AuthContext from "../../../context/AuthContext";
-import AlertContext from "../../../context/AlertContext";
+import { useDisclosure, ButtonGroup, Button, VStack, Image, Icon, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, ModalHeader, Box } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useDisclosure, ButtonGroup, Button, VStack, Image, Icon, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, ModalHeader, ModalFooter, Input, FormErrorMessage, useColorModeValue, Text, Box } from "@chakra-ui/react";
 import { userPicDelete, userPicUpdate } from "../../../services/reqUser";
 import { picValidation } from "../../../utils/picValidation";
 import { useForm } from "react-hook-form";
+import AuthContext from "../../../context/AuthContext";
+import AlertContext from "../../../context/AlertContext";
 import Form from "../../../components/Form/Form";
 import SubmitPic from "../../../components/Form/SubmitPic";
 import ColorContext from "../../../context/ColorContext";

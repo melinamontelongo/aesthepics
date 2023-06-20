@@ -47,7 +47,6 @@ const UpdateForm = () => {
                 label="Your bio"
                 error={errors["bio"]} 
                 defaultValue={userCtx.user.bio}
-                sx={{ borderImageSlice: 1, borderImageSource: colorCtx.gradientToRight }}
                 />
         </Form>
     );
